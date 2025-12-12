@@ -6,26 +6,23 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 17:46:04 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/11 15:59:34 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/12 04:16:43 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
 #include <stdio.h>
-#include <string.h>
 
-void	merge(int *data, int len, int index[3]);
+#include "libft.h"
+
+static void	merge(int *data, int len, int index[3]);
 
 void	merge_sort(int *data, int len)
 {
 	int	tmp;
 	int	index[3];
 
-	//TODO: replace with ft_bzero(index, 3 * sizeof(int))
-	index[0] = 0;
-	index[1] = 0;
-	index[2] = 0;
+	ft_bzero(index, 3 * sizeof(int));
 	if (len > 2)
 		merge(data, len, index);
 	else if (len == 2)
@@ -39,7 +36,7 @@ void	merge_sort(int *data, int len)
 	}
 }
 
-void	merge(int *data, int len, int index[3])
+static void	merge(int *data, int len, int index[3])
 {
 	int	*blk1;
 	int	*blk2;
@@ -61,6 +58,21 @@ void	merge(int *data, int len, int index[3])
 			dup[index[0]++] = blk2[index[2]++];
 	}
 	// TODO: replace with ft
-	memmove(data, dup, len * sizeof(int));
+	ft_memmove(data, dup, len * sizeof(int));
 	free(dup);
 }
+
+int	check_sorted(int *data, int len)
+{
+	int	index;
+
+	index = 0;
+	while (index < len - 1)
+	{
+		if (data[index] > data[index + 1])
+			return (0);
+		index++;
+	}
+	return (1);
+}
+

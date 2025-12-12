@@ -6,7 +6,7 @@
 #    By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/11 12:05:07 by Elkan Choo        #+#    #+#              #
-#    Updated: 2025/12/11 17:45:06 by Elkan Choo       ###   ########.fr        #
+#    Updated: 2025/12/12 04:07:39 by Elkan Choo       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,11 @@ LIBFT = libft/libft.a
 
 NAME = push_swap
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Ilibft
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJECTS)
+$(NAME): $(LIBFT) $(OBJECTS) push_swap.h
 	cc $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME)
 
 print:
