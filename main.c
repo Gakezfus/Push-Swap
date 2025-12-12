@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 14:49:27 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/12 10:58:22 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/12 11:00:31 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ char	*init_var(int *solution, int *data, int *len)
 		return (NULL);
 }
 
+// Function is supposed to keep the 4 in stack A, send the rest to stack B, then sort stack A. Function is WIP,
+// necessary to finish the actions function first in actions.c
 int	arrange_init(int init[4], int *stack[2], int len)
 {
 	int	index;
