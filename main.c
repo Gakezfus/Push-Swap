@@ -25,7 +25,7 @@ int	main(int argc, char *argv[])
 
 	if (argc < 2)
 		return (1);
-	data = malloc((argc - 1) * sizeof(int));
+	data = malloc((argc) * sizeof(int));
 	if (data == NULL || check(argv + 1) || con_int(argc - 1, argv + 1, data))
 		return (free(data), write(2, "Error\n", 6), 1);
 	to_write = solve(data, argc - 1);
@@ -62,7 +62,9 @@ char	*init_var(int *solution, int *data, int *len)
 	int	index;
 
 	stack[0] = data;
-	stack[1] = calloc(len * sizeof(int));
+	ft_memmove(stack[0] + 1, stack[0], len)
+	stack[0][0] = len;
+	stack[1] = calloc((len + 1) * sizeof(int));
 	if (stack[1] == NULL)
 		return (NULL);
 	index = 0;
