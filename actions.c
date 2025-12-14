@@ -35,19 +35,21 @@
 #include "push_swap.h"
 #include <stddef.h>
 
-void	act(char *stack[2], int act_no, int len)
+void	act(char *stack[2], int act_no, t_list log)
 {
 	if (act_no == 1)
-		swap_int(&stack[0][0], &stack[0][1]);
+		swap_int(&stack[0][1], &stack[0][2]);
 	if (act_no == 2)
-		swap_int(&stack[1][0], &stack[1][1]);
+		swap_int(&stack[1][1], &stack[1][2]);
 	if (act_no == 3)
 	{
 		// Might want to compress this into a function
-		ft_memmove(stack[0] + 1, stack[0], len - 1);
-		stack[0][0] = stack[1][0];
-		ft_memmove(stack[1], stack[1] + 1, len - 1);
+		ft_memmove(stack[0] + 2, stack[0] + 1, stack[0][0]++);
+		stack[0][1] = stack[1][1];
+		ft_memmove(stack[1] + 1, stack[1] + 2, --stack[1][0]);
 	}
+	//TODO Function
+	note_act(act_no, t_list log);
 }
 
 void	swap_int(int *a, int *b)
