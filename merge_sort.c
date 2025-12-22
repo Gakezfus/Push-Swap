@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 17:46:04 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/12 10:58:21 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/22 11:17:03 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	check_sorted(int *data, int len)
 	while (index < len - 1)
 	{
 		if (data[index] > data[index + 1])
-			return (0);
+			return (1);
 		index++;
 	}
-	return (1);
+	return (0);
 }
 
