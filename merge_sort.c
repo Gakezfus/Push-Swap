@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 17:46:04 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/23 03:40:36 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/23 10:14:27 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 
 #include "libft.h"
+#include "push_swap.h"
 
 static void	merge(int *data, int len, int index[3]);
 
@@ -58,7 +59,6 @@ static void	merge(int *data, int len, int index[3])
 		else
 			dup[index[0]++] = blk2[index[2]++];
 	}
-	// TODO: replace with ft
 	ft_memmove(data, dup, len * sizeof(int));
 	free(dup);
 }

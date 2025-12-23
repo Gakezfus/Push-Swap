@@ -6,12 +6,13 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 14:49:27 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/23 04:32:47 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/23 10:54:19 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 #include "libft.h"
 #include "push_swap.h"
@@ -20,13 +21,14 @@
 
 static char	*solve(int *data, int len);
 static int	init_var(int *solution, int *stack[2], t_list **log);
-static int	arrange_init(int init[4], int *stack[2], t_list **log, int len);
+static int	arrange_init(int *init, int *stack[2], t_list **log);
 static int	find_sol(int *sol, int *data, int len);
 
 int	main(int argc, char *argv[])
 {
 	int		*data;
 	char	*to_write;
+	int		index;
 
 	if (argc < 2)
 		return (1);
@@ -37,9 +39,10 @@ int	main(int argc, char *argv[])
 	if (to_write == NULL)
 		return (free(data), write(2, "Error\n", 6), 1);
 	//TODO: Add printf to libft
-	while (*to_write)
-		write(1, to_write++, 1);
-	return (1);
+	index = 0;
+	while (to_write[index])
+		write(1, to_write + index++, 1);
+	return (free(data), free(to_write), 1);
 }
 
 // stack[0] represents stack A, stack[1] represents stack B
@@ -53,7 +56,7 @@ static char	*solve(int *data, int len)
 	t_list	*log;
 
 	stack[0] = data;
-	ft_memmove(stack[0] + 1, stack[0], len);
+	ft_memmove(stack[0] + 1, stack[0], len * sizeof(int));
 	stack[0][0] = len;
 	stack[1] = ft_calloc((len + 1), sizeof(int));
 	sol = malloc(len * sizeof(int));
@@ -63,9 +66,10 @@ static char	*solve(int *data, int len)
 	log = NULL;
 	if (find_sol(sol, data, len) || init_var(sol, stack, &log) ||
 	process_log(&to_return, log))
-		return (free(sol), NULL);
+		return (free(sol), free(stack[1]), ft_lstclear(&log, free), NULL);
+	// TODO: Brute sort (goes before Turk algo)
 	// TODO: Turk algo before process_log.
-	return (to_return);
+	return (free(sol), free(stack[1]), ft_lstclear(&log, free), to_return);
 }
 
 static int	find_sol(int *sol, int *data, int len)
@@ -83,34 +87,44 @@ static int	init_var(int *solution, int *stack[2], t_list **log)
 	int	index;
 
 	index = 0;
-	while (index < 4 && index < stack[0][0] / 2)
+	if (stack[0][0] >= 4)
 	{
-		init[index] = solution[(stack[0][0] / 2) + index - 1];
-		index++;	
+		while (index < 4)
+		{
+			if (stack[0][0] / 2 >= 4)
+				init[index] = solution[(stack[0][0] / 2) + index - 1];
+			else
+				init[index] = solution[index];
+			index++;	
+		}
 	}
-	if (arrange_init(init, stack, log, index))
-		return (ft_lstclear(log, free), 1);
+	if (stack[0][0] >= 4)
+		if (arrange_init(init, stack, log))
+			return (1);
 	return (0);
 }
 
 // Function is supposed to keep the 4 in stack A, send the rest to stack B,
 // then sort stack A. Function is WIP, necessary to finish the actions
 // function first in actions.c
-static int	arrange_init(int init[4], int *stack[2], t_list **log, int len)
+static int	arrange_init(int *init, int *stack[2], t_list **log)
 {
 	int	index;
+	int	len;
 
 	index = 0;
-	while (index < stack[0][0])
+	len = stack[0][0];
+	while (index < len)
 	{
-		if (ft_memchr(init, stack[0][index + 1], len * sizeof(int)))
+		if (init && ft_memchr(init, stack[0][index++ + 1],
+			4 * sizeof(int)))
 		{
 			if (act(stack, 5, log))
 				return (1);
 		}
 		else
 			if (act(stack, 4, log))
-				return (1); 
+				return (1);
 	}
 	return (0);
 }

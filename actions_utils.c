@@ -1,8 +1,9 @@
 
 #include "libft.h"
+#include "push_swap.h"
 
 // If order == 0, normal, if order == 1, reverse rotate
-void	rot(char *stack, int order)
+void	rot(int *stack, int order)
 {
 	int	tmp;
 
@@ -21,11 +22,11 @@ void	rot(char *stack, int order)
 	}
 }
 
-void	push(char *stack[2], int src, int dest)
-{git 
-	ft_memmove(stack[dest] + 2, stack[dest] + 1, stack[dest][0]++);
+void	push(int *stack[2], int src, int dest)
+{
+	ft_memmove(stack[dest] + 2, stack[dest] + 1, stack[dest][0]++ * sizeof(int));
 	stack[dest][1] = stack[src][1];
-	ft_memmove(stack[src] + 1, stack[src] + 2, --stack[src][0]);
+	ft_memmove(stack[src] + 1, stack[src] + 2, --stack[src][0] * sizeof(int));
 }
 
 void	swap_int(int *a, int *b)
