@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 17:46:04 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/22 11:17:03 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/23 03:40:36 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	merge_sort(int *data, int len)
 	int	tmp;
 	int	index[3];
 
+	tmp = 0;
 	ft_bzero(index, 3 * sizeof(int));
 	if (len > 2)
 		merge(data, len, index);

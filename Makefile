@@ -6,7 +6,7 @@
 #    By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/11 12:05:07 by Elkan Choo        #+#    #+#              #
-#    Updated: 2025/12/12 04:07:39 by Elkan Choo       ###   ########.fr        #
+#    Updated: 2025/12/23 03:48:58 by Elkan Choo       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT = libft/libft.a
 
 NAME = push_swap
 
-CFLAGS = -Wall -Wextra -Werror -Ilibft
+CFLAGS = -Wall -Wextra -Werror -Ilibft -g
 
 all: $(NAME)
 
@@ -29,7 +29,7 @@ print:
 	echo $(SOURCES)
 
 $(LIBFT):
-	make -C libft
+	make bonus -C libft
 
 %.o: %.c
 	cc $(CFLAGS) -MMD -MP -c $< -o $@ 

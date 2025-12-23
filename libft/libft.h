@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echoo <echoo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 14:14:04 by echoo             #+#    #+#             */
-/*   Updated: 2025/11/26 16:58:17 by echoo            ###   ########.fr       */
+/*   Updated: 2025/12/23 02:35:41 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,8 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
+
+// Own functions
+long long int	ft_atoll(const char *str);
 
 #endif
