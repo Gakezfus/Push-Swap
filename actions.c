@@ -47,12 +47,13 @@
 #include "libft.h"
 #include "push_swap.h"
 
-int	act(int *stack[2], int act_no, t_list **log);
+int	act(int act_no, int *stack[2], t_list **log);
+int	act_a(int act_no, int *stack[2]);
 int	log_act(int act_no, t_list **log);
 
-static void	act_2(int *stack[2], int act_no, t_list **log);
+static void	act_2(int act_no, int *stack[2], t_list **log);
 
-int	act(int *stack[2], int act_no, t_list **log)
+int	act(int act_no, int *stack[2], t_list **log)
 {
 	if (act_no == 1)
 		swap_int(&stack[0][1], &stack[0][2]);
@@ -71,14 +72,28 @@ int	act(int *stack[2], int act_no, t_list **log)
 	if (act_no == 8)
 		rot(stack[0], 1);
 	if (act_no >= 9)
-		act_2(stack, act_no, log);
+		act_2(act_no, stack, log);
 	//TODO Function
 	if (log_act(act_no, log))
 		return (1);
 	return (0);
 }
 
-static void	act_2(int *stack[2], int act_no, t_list **log)
+// for actions only on stack a.
+
+// act_no == 1:
+// sa (swap a): Swap the first 2 elements at the top of stack a.
+// Do nothing if there is only one element or none.
+
+// act_no == 5:
+// ra (rotate a): Shift up all elements of stack a by 1.
+// The first element becomes the last one.
+
+// act_no == 7:
+// rra (reverse rotate a): Shift down all elements of stack a by 1.
+// The last element becomes the first one.
+
+static void	act_2(int act_no, int *stack[2], t_list **log)
 {
 	if (act_no == 9)
 	{
@@ -98,6 +113,17 @@ static void	act_2(int *stack[2], int act_no, t_list **log)
 		rot(stack[1], 1);
 		log_act(act_no, log);
 	}
+}
+
+int	act_a(int act_no, int *stack)
+{
+	if (act_no == 1)
+		swap_int(&stack[0], &stack[1]);
+	if (act_no == 2)
+		rot(stack, 0);
+	if (act_no == 3)
+		rot(stack, 1);
+	return (0);
 }
 
 int	log_act(int act_no, t_list **log)

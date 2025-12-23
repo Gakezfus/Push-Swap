@@ -6,7 +6,8 @@
 int		process_log(char **to_return, t_list *log);
 
 // from actions.c
-int	act(int *stack[2], int act_no, t_list **log);
+int	act(int act_no, int *stack[2], t_list **log);
+int	act_a(int act_no, int *stack[2]);
 
 // from actions_utils.c
 void	push(int *stack[2], int src, int dest);

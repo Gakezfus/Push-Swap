@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 14:49:27 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/23 10:54:19 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/23 16:16:27 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 static char	*solve(int *data, int len);
 static int	init_var(int *solution, int *stack[2], t_list **log);
-static int	arrange_init(int *init, int *stack[2], t_list **log);
+static int	arrange_init(int init[4], int *stack[2], t_list **log);
 static int	find_sol(int *sol, int *data, int len);
 
 int	main(int argc, char *argv[])
@@ -55,17 +55,17 @@ static char	*solve(int *data, int len)
 	char	*to_return;
 	t_list	*log;
 
+	sol = malloc(len * sizeof(int));
+	stack[1] = ft_calloc((len + 1), sizeof(int));
+	if (stack[1] == NULL || sol == NULL)
+		return (NULL);
+	find_sol(sol, data, len);
 	stack[0] = data;
 	ft_memmove(stack[0] + 1, stack[0], len * sizeof(int));
 	stack[0][0] = len;
-	stack[1] = ft_calloc((len + 1), sizeof(int));
-	sol = malloc(len * sizeof(int));
-	if (stack[1] == NULL || sol == NULL)
-		return (NULL);
 	to_return = NULL;
 	log = NULL;
-	if (find_sol(sol, data, len) || init_var(sol, stack, &log) ||
-	process_log(&to_return, log))
+	if (init_var(sol, stack, &log) || process_log(&to_return, log))
 		return (free(sol), free(stack[1]), ft_lstclear(&log, free), NULL);
 	// TODO: Brute sort (goes before Turk algo)
 	// TODO: Turk algo before process_log.
@@ -94,7 +94,7 @@ static int	init_var(int *solution, int *stack[2], t_list **log)
 			if (stack[0][0] / 2 >= 4)
 				init[index] = solution[(stack[0][0] / 2) + index - 1];
 			else
-				init[index] = solution[index];
+				init[index] = solution[stack[0][0] - index - 1];
 			index++;	
 		}
 	}
@@ -107,24 +107,29 @@ static int	init_var(int *solution, int *stack[2], t_list **log)
 // Function is supposed to keep the 4 in stack A, send the rest to stack B,
 // then sort stack A. Function is WIP, necessary to finish the actions
 // function first in actions.c
-static int	arrange_init(int *init, int *stack[2], t_list **log)
+static int	arrange_init(int init[4], int *stack[2], t_list **log)
 {
 	int	index;
 	int	len;
+	int	*stack_1;
 
 	index = 0;
 	len = stack[0][0];
+	stack_1 = malloc(len * sizeof(int));
+	if (stack_1 == NULL)
+		return (free(stack_1), 1);
+	ft_memcpy(stack_1, stack[0] + 1, len * sizeof(int));
 	while (index < len)
 	{
-		if (init && ft_memchr(init, stack[0][index++ + 1],
+		if (ft_memchr(init, stack_1[index++],
 			4 * sizeof(int)))
 		{
-			if (act(stack, 5, log))
-				return (1);
+			if (act(5, stack, log))
+				return (free(stack_1), 1);
 		}
 		else
-			if (act(stack, 4, log))
-				return (1);
+			if (act(4, stack, log))
+				return (free(stack_1), 1);
 	}
-	return (0);
+	return (free(stack_1), 0);
 }
