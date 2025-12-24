@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:52:17 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/24 13:39:48 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/24 13:44:42 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	*search_2(int *stack, int *sol, int *path, int *depth)
 	while(*depth && index < 4)
 	{
 		ft_memcpy(s_dup, stack, (stack[0] + 1) * sizeof(int));
-		p_dup[path[0]] = index;
+		p_dup[p_dup[0]] = index;
 		act_a(index, s_dup);
 		if (!ft_memcmp(s_dup + 1, sol, INIT_LEN * sizeof(int)))
 			return (free(s_dup), p_dup);
