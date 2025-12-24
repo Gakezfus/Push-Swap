@@ -1,13 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/24 10:52:51 by Elkan Choo        #+#    #+#             */
+/*   Updated: 2025/12/24 10:52:53 by Elkan Choo       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+
+#define INIT_LEN 4
 
 // from process_log.c
 int		process_log(char **to_return, t_list *log);
 
 // from actions.c
 int	act(int act_no, int *stack[2], t_list **log);
-int	act_a(int act_no, int *stack[2]);
+int	act_a(int act_no, int *stack);
 
 // from actions_utils.c
 void	push(int *stack[2], int src, int dest);
@@ -22,5 +35,8 @@ int		con_int(int item_count, char *argv[], int *data);
 // from merge_sort.c
 void	merge_sort(int *data, int len);
 int		check_sorted(int *data, int len);
+
+// from brute_sort.c
+int	brute_sort(int *stack[2], t_list **log);
 
 #endif

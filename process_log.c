@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process_log.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/24 10:52:29 by Elkan Choo        #+#    #+#             */
+/*   Updated: 2025/12/24 10:52:40 by Elkan Choo       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -6,7 +17,7 @@
 #include "push_swap.h"
 
 static int	log_len(t_list *log);
-static void	convert(char **to_return, t_list *log);
+static void	convert_log(char **to_return, t_list *log);
 
 int	process_log(char **to_return, t_list *log)
 {
@@ -16,7 +27,7 @@ int	process_log(char **to_return, t_list *log)
 	*to_return = malloc((len + 1));
 	if (*to_return == NULL)
 		return (ft_lstclear(&log, free), 1);
-	convert(to_return, log);
+	convert_log(to_return, log);
 	// potentially process to_return to check for double action efficiency.
 	// will see if such efficiency is necessary. If necessary, will prob
 	// want to create an array of ints representing each action as a num.
@@ -25,12 +36,11 @@ int	process_log(char **to_return, t_list *log)
 
 // If this is not norm, I think I need a new function. Ridiculous.
 // strlcpy null terminates, so values are one larger
-static void	convert(char **to_return, t_list *log)
+static void	convert_log(char **to_return, t_list *log)
 {
-	t_list	*tmp;
-	int		index;
+	t_list		*tmp;
+	static int	index = 0;
 
-	index = 0;
 	tmp = log;
 	while (tmp)
 	{

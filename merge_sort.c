@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 17:46:04 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/23 10:14:27 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/24 10:55:13 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 static void	merge(int *data, int len, int index[3]);
 
+// Len is number of ints, not number of bytes
 void	merge_sort(int *data, int len)
 {
 	int	tmp;

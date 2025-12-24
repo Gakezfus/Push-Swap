@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   actions.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/24 10:52:35 by Elkan Choo        #+#    #+#             */
+/*   Updated: 2025/12/24 12:28:36 by Elkan Choo       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 // act_no == 1:
 // sa (swap a): Swap the first 2 elements at the top of stack a.
@@ -42,26 +53,27 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
 
 #include "libft.h"
 #include "push_swap.h"
 
 int	act(int act_no, int *stack[2], t_list **log);
-int	act_a(int act_no, int *stack[2]);
+int	act_a(int act_no, int *stack);
 int	log_act(int act_no, t_list **log);
 
 static void	act_2(int act_no, int *stack[2], t_list **log);
 
 int	act(int act_no, int *stack[2], t_list **log)
 {
-	if (act_no == 1)
+	if (act_no == 1 && stack[0][0] >= 2)
 		swap_int(&stack[0][1], &stack[0][2]);
-	if (act_no == 2)
+	if (act_no == 2 && stack[1][0] >= 2)
 		swap_int(&stack[1][1], &stack[1][2]);
-	if (act_no == 3)
+	if (act_no == 3 && stack[1][0])
 		push(stack, 1, 0);
-	if (act_no == 4)
+	if (act_no == 4 && stack[0][0])
 		push(stack, 0, 1);
 	if (act_no == 5)
 		rot(stack[0], 0);
@@ -118,7 +130,7 @@ static void	act_2(int act_no, int *stack[2], t_list **log)
 int	act_a(int act_no, int *stack)
 {
 	if (act_no == 1)
-		swap_int(&stack[0], &stack[1]);
+		swap_int(&stack[1], &stack[2]);
 	if (act_no == 2)
 		rot(stack, 0);
 	if (act_no == 3)

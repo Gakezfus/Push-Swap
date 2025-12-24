@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 14:49:27 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/23 16:16:27 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/24 09:58:34 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char *argv[])
 	index = 0;
 	while (to_write[index])
 		write(1, to_write + index++, 1);
-	return (free(data), free(to_write), 1);
+	return (free(data), free(to_write), 0);
 }
 
 // stack[0] represents stack A, stack[1] represents stack B
@@ -65,7 +65,9 @@ static char	*solve(int *data, int len)
 	stack[0][0] = len;
 	to_return = NULL;
 	log = NULL;
-	if (init_var(sol, stack, &log) || process_log(&to_return, log))
+	if (init_var(sol, stack, &log) ||
+	brute_sort(stack, &log) ||
+	process_log(&to_return, log))
 		return (free(sol), free(stack[1]), ft_lstclear(&log, free), NULL);
 	// TODO: Brute sort (goes before Turk algo)
 	// TODO: Turk algo before process_log.
@@ -83,22 +85,22 @@ static int	find_sol(int *sol, int *data, int len)
 
 static int	init_var(int *solution, int *stack[2], t_list **log)
 {
-	int	init[4];
+	int	init[INIT_LEN];
 	int	index;
 
 	index = 0;
-	if (stack[0][0] >= 4)
+	if (stack[0][0] >= INIT_LEN)
 	{
-		while (index < 4)
+		while (index < INIT_LEN)
 		{
-			if (stack[0][0] / 2 >= 4)
+			if (stack[0][0] / 2 >= INIT_LEN)
 				init[index] = solution[(stack[0][0] / 2) + index - 1];
 			else
 				init[index] = solution[stack[0][0] - index - 1];
 			index++;	
 		}
 	}
-	if (stack[0][0] >= 4)
+	if (stack[0][0] >= INIT_LEN)
 		if (arrange_init(init, stack, log))
 			return (1);
 	return (0);
@@ -107,7 +109,7 @@ static int	init_var(int *solution, int *stack[2], t_list **log)
 // Function is supposed to keep the 4 in stack A, send the rest to stack B,
 // then sort stack A. Function is WIP, necessary to finish the actions
 // function first in actions.c
-static int	arrange_init(int init[4], int *stack[2], t_list **log)
+static int	arrange_init(int init[INIT_LEN], int *stack[2], t_list **log)
 {
 	int	index;
 	int	len;
@@ -122,7 +124,7 @@ static int	arrange_init(int init[4], int *stack[2], t_list **log)
 	while (index < len)
 	{
 		if (ft_memchr(init, stack_1[index++],
-			4 * sizeof(int)))
+			INIT_LEN * sizeof(int)))
 		{
 			if (act(5, stack, log))
 				return (free(stack_1), 1);

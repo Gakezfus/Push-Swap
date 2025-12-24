@@ -1,23 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   actions_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/24 10:52:42 by Elkan Choo        #+#    #+#             */
+/*   Updated: 2025/12/24 10:52:47 by Elkan Choo       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
+
+#include <stdio.h>
 
 // If order == 0, normal, if order == 1, reverse rotate
 void	rot(int *stack, int order)
 {
 	int	tmp;
 
-	tmp = stack[0];
+	tmp = stack[1];
 	if (order)
-		tmp = stack[stack[0] - 1];
-	if (order)
+		tmp = stack[stack[0]];
+	if (!order)
 	{
-		ft_memmove(stack + 1, stack + 2, stack[0]);
-		stack[stack[0] - 1] = tmp;
+		ft_memmove(stack + 1, stack + 2, (stack[0] - 1) * sizeof(int));
+		stack[stack[0]] = tmp;
 	}
 	else
 	{
-		ft_memmove(stack + 2, stack + 1, stack[0]);
+		ft_memmove(stack + 2, stack + 1, (stack[0] - 1) * sizeof(int));
 		stack[1] = tmp;
 	}
 }
