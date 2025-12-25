@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 14:49:27 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/24 14:12:37 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/25 05:59:59 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,13 @@ static char	*solve(int *data, int len)
 	stack[0][0] = len;
 	to_return = NULL;
 	log = NULL;
-	if (init_var(sol, stack, &log) ||
-	brute_sort(stack, &log) ||
-	process_log(&to_return, log))
+	if (init_var(sol, stack, &log) || brute_sort(stack, &log) ||
+	process_log(&to_return, log) || )
 		return (free(sol), free(stack[1]), ft_lstclear(&log, free), NULL);
 	for (int i = 0; i < stack[0][0] + 1; i++)
 	{
 		printf("stack[%i]: %i\n", i, stack[0][i]);
 	}
-	// TODO: Brute sort (goes before Turk algo)
 	// TODO: Turk algo before process_log.
 	return (free(sol), free(stack[1]), ft_lstclear(&log, free), to_return);
 }

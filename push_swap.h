@@ -6,14 +6,14 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:52:51 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/24 14:12:35 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/25 05:56:30 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#define INIT_LEN 4
+#define INIT_LEN 5
 
 // from process_log.c
 int		process_log(char **to_return, t_list *log);
