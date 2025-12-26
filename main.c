@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 14:49:27 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 04:33:52 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 20:01:33 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ int	main(int argc, char *argv[])
 	to_write = solve(data, argc - 1);
 	if (to_write == NULL)
 		return (free(data), write(2, "Error\n", 6), 1);
-	//TODO: Add printf to libft
+	if (*to_write == 0)
+		return (free(data), free(to_write), 0);
 	index = 0;
-	while (to_write[index])
-		write(1, to_write + index++, 1);
+	// while (to_write[index])
+	// 	write(1, to_write + index++, 1);
 	return (free(data), free(to_write), 0);
 }
 
@@ -50,10 +51,10 @@ int	main(int argc, char *argv[])
 // of stack B
 static char	*solve(int *data, int len)
 {
-	int		*sol;
-	int		*stack[2];
-	char	*to_return;
-	t_list	*log;
+	int				*sol;
+	int				*stack[2];
+	char			*to_return;
+	static t_list	*log = NULL;
 
 	sol = malloc(len * sizeof(int));
 	stack[1] = ft_calloc((len + 1), sizeof(int));
@@ -64,14 +65,11 @@ static char	*solve(int *data, int len)
 	stack[0][0] = len;
 	to_return = NULL;
 	log = NULL;
-	if (init_var(sol, stack, &log) || brute_sort(stack, &log) ||
-	turk_setup(stack, &log, len) ||
-	process_log(&to_return, log))
+	if (init_var(sol, stack, &log)
+	|| brute_sort(stack, &log)
+		|| turk_setup(stack, &log, len)
+	|| process_log(&to_return, log))
 		return (free(sol), free(stack[1]), ft_lstclear(&log, free), NULL);
-	for (int i = 0; i < stack[0][0] + 1; i++)
-	{
-		printf("stack[%i]: %i\n", i, stack[0][i]);
-	}
 	return (free(sol), free(stack[1]), ft_lstclear(&log, free), to_return);
 }
 
@@ -98,7 +96,7 @@ static int	init_var(int *solution, int *stack[2], t_list **log)
 				init[index] = solution[(stack[0][0] / 2) + index - 1];
 			else
 				init[index] = solution[stack[0][0] - index - 1];
-			index++;	
+			index++;
 		}
 	}
 	if (stack[0][0] >= INIT_LEN)
@@ -125,7 +123,7 @@ static int	arrange_init(int init[INIT_LEN], int *stack[2], t_list **log)
 	while (index < len)
 	{
 		if (ft_intchr(init, stack_1[index],
-			INIT_LEN))
+				INIT_LEN))
 		{
 			if (act(5, stack, log))
 				return (free(stack_1), 1);

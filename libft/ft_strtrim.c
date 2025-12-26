@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:49:05 by echoo             #+#    #+#             */
-/*   Updated: 2025/11/26 18:11:36 by codespace        ###   ########.fr       */
+/*   Updated: 2025/12/26 14:47:56 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	ft_totrim(char const *s1, char const *set, int dir)
 		index[1] = 0;
 		while (set[index[1]])
 		{
-			if(s1[index[0]] == set[index[1]])
+			if (s1[index[0]] == set[index[1]])
 				trim = 1;
 			index[1]++;
 		}

@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:52:42 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/24 10:52:47 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 14:59:29 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	rot(int *stack, int order)
 	}
 }
 
-void	push(int *stack[2], int src, int dest)
+void	push(int *stack[2], int src, int dst)
 {
-	ft_memmove(stack[dest] + 2, stack[dest] + 1, stack[dest][0]++ * sizeof(int));
-	stack[dest][1] = stack[src][1];
+	ft_memmove(stack[dst] + 2, stack[dst] + 1, stack[dst][0]++ * sizeof(int));
+	stack[dst][1] = stack[src][1];
 	ft_memmove(stack[src] + 1, stack[src] + 2, --stack[src][0] * sizeof(int));
 }
 

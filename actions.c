@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:52:35 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 04:27:20 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 14:40:40 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 // Do nothing if there is only one element or none.
 
 // act_no == 3;
-// pa (push a): Take the first element at the top of b and put it at the top of a.
+// pa (push a): Take the first element at the top of b and put it
+// at the top of a.
 // Do nothing if b is empty.
 
 // act_no == 4:
-// pb (push b): Take the first element at the top of a and put it at the top of b.
+// pb (push b): Take the first element at the top of a and put it
+// at the top of b.
 // Do nothing if a is empty.
 
 // act_no == 5:
@@ -59,10 +61,9 @@
 #include "libft.h"
 #include "push_swap.h"
 
-int	act(int act_no, int *stack[2], t_list **log);
-int	act_a(int act_no, int *stack);
-int	log_act(int act_no, t_list **log);
-
+int			act(int act_no, int *stack[2], t_list **log);
+int			act_a(int act_no, int *stack);
+int			log_act(int act_no, t_list **log);
 static void	act_2(int act_no, int *stack[2], t_list **log);
 
 int	act(int act_no, int *stack[2], t_list **log)
@@ -85,7 +86,6 @@ int	act(int act_no, int *stack[2], t_list **log)
 		rot(stack[1], 1);
 	if (act_no >= 9)
 		act_2(act_no, stack, log);
-	//TODO Function
 	if (log_act(act_no, log))
 		return (1);
 	return (0);

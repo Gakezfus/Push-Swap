@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:55:47 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 04:20:09 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 19:57:22 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,15 @@ int	turk_setup(int *stack[2], t_list **log, int sol_len)
 {
 	int	*score[3];
 	int	score_mem;
-	
+
 	score_mem = stack[1][0] * sizeof(int);
 	score[0] = malloc(score_mem);
 	score[1] = malloc(score_mem);
 	score[2] = malloc(score_mem);
 	if (!score[0] || !score[1] || !score[1])
 		return (free(score[0]), free(score[1]), free(score[2]), 1);
-	while (!(stack[0][0] == sol_len && check_sorted(stack[0] + 1, sol_len)))
+	while (!(stack[0][0] == sol_len))
 	{
-		// printf("sol_len: %i\n", sol_len);
-		// printf("stack len: %i\n", stack[0][0]);
 		ft_bzero(score[0], stack[1][0] * sizeof(int));
 		ft_bzero(score[1], stack[1][0] * sizeof(int));
 		ft_bzero(score[2], stack[1][0] * sizeof(int));
@@ -54,14 +52,14 @@ int	turk_sort(int *stack[2], int *score[3], t_list **log)
 
 	calc_score_a(stack, score);
 	calc_score_b(stack, score);
-	index = 1;
+	index = 0;
 	lowest = INT_MAX;
-	while (index < stack[1][0] + 1)
+	while (index < stack[1][0])
 	{
 		if (score[0][index] <= lowest)
 		{
 			lowest = score[0][index];
-			pos = index - 1;
+			pos = index;
 		}
 		index++;
 	}
@@ -78,9 +76,11 @@ void	calc_score_a(int *stack[2], int *score[3])
 	while (index[0] < stack[1][0])
 	{
 		index[1] = 0;
-		while (stack[0][index[1] + 1] < stack[1][index[0]])
+		while (stack[0][index[1] + 1] < stack[1][index[0]]
+				&& index[1] <= stack[0][0])
 			index[1]++;
-		if ((score[1][index[0]] = index[1] > stack[0][index[0]] - index[1]))
+		score[1][index[0]] = index[1] > stack[0][index[0]] - index[1];
+		if (score[1][index[0]])
 			score[0][index[0]] += stack[0][0] - index[1];
 		else
 			score[0][index[0]] += index[1];
@@ -95,7 +95,8 @@ void	calc_score_b(int *stack[2], int *score[3])
 	index = 0;
 	while (index < stack[1][0])
 	{
-		if ((score[2][index] = (index > stack[1][index + 1] - index)))
+		score[2][index] = (index > stack[1][index + 1] - index);
+		if (score[2][index])
 			score[0][index] += stack[1][0] - index;
 		else
 			score[0][index] += index;

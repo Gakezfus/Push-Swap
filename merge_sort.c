@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 17:46:04 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/24 10:55:13 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 15:01:37 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,19 @@ static void	merge(int *data, int len, int index[3])
 {
 	int	*blk1;
 	int	*blk2;
-	int *dup;
+	int	*dup;
 
 	dup = malloc((len) * sizeof(int));
 	if (dup == NULL)
 		return ;
 	blk1 = data;
-	blk2 = data + len/2;
-	merge_sort(blk1, len/2);
-	merge_sort(blk2, len - len/2);
+	blk2 = data + len / 2;
+	merge_sort(blk1, len / 2);
+	merge_sort(blk2, len - len / 2);
 	while (index[0] < len)
 	{
-		if (!(index[1] >= len/2) && (index[2] >= len - len/2 ||
-			blk1[index[1]] < blk2[index[2]]))
+		if (!(index[1] >= len / 2) && (index[2] >= len - len / 2
+				|| blk1[index[1]] < blk2[index[2]]))
 			dup[index[0]++] = blk1[index[1]++];
 		else
 			dup[index[0]++] = blk2[index[2]++];
@@ -77,4 +77,3 @@ int	check_sorted(int *data, int len)
 	}
 	return (0);
 }
-

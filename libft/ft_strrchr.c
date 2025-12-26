@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echoo <echoo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 16:24:36 by echoo             #+#    #+#             */
-/*   Updated: 2025/11/26 18:08:25 by echoo            ###   ########.fr       */
+/*   Updated: 2025/12/26 14:46:13 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ char	*ft_strrchr(const char *s, int c)
 	ch = (unsigned char)c;
 	s_strlen = ft_strlen(s);
 	str_index = 0;
-	// if (s[s_strlen] == ch)
-	// 	return((char *)&s[s_strlen]);
 	while (str_index <= s_strlen)
 	{
 		if (s[s_strlen - str_index] == ch)

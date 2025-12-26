@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:52:17 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 03:28:30 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 18:44:54 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,24 @@ int	brute_sort(int *stack[2], t_list **log)
 	static int	index = 1;
 	static int	depth[1] = {1};
 
-	sol = malloc(INIT_LEN * sizeof(int));
-	ft_memcpy(sol, stack[0] + 1, INIT_LEN * sizeof(int));
-	merge_sort(sol, INIT_LEN);
+	sol = malloc(stack[0][0] * sizeof(int));
+	ft_memcpy(sol, stack[0] + 1, stack[0][0] * sizeof(int));
+	merge_sort(sol, stack[0][0]);
 	p_dup = malloc(sizeof(int));
 	if (p_dup == NULL)
 		return (1);
 	p_dup[0] = 0;
 	while (!path && depth[0]++)
+	{
 		path = search(stack[0], sol, p_dup, depth);
+	}
 	while (index < path[0] + 1)
 	{
 		if (act("157"[path[index] - 1] - '0', stack, log))
-			return (free(p_dup), free (sol), 1);
+			return (free(p_dup), free(sol), 1);
 		index++;
 	}
-	return (free(p_dup), free (sol), free(path), 0);
+	return (free(p_dup), free(sol), 0);
 }
 
 static int	*search(int *stack, int *sol, int *path, int *depth)
@@ -51,7 +53,7 @@ static int	*search(int *stack, int *sol, int *path, int *depth)
 	int	*ret;
 	int	*p_dup;
 
-	if (!ft_memcmp(stack + 1, sol, INIT_LEN * sizeof(int)))
+	if (!ft_memcmp(stack + 1, sol, stack[0] * sizeof(int)))
 		return (path);
 	path[0]++;
 	if (path[0] > *depth)
@@ -77,12 +79,12 @@ static int	*search_2(int *stack, int *sol, int *path, int *depth)
 	if (s_dup == NULL)
 		return (free(s_dup), free(path), *depth = 0, NULL);
 	index = 1;
-	while(*depth && index < 4)
+	while (*depth && index < 4)
 	{
 		ft_memcpy(s_dup, stack, (stack[0] + 1) * sizeof(int));
 		path[path[0]] = index;
 		act_a(index, s_dup);
-		if (!ft_memcmp(s_dup + 1, sol, INIT_LEN * sizeof(int)))
+		if (!ft_memcmp(s_dup + 1, sol, s_dup[0] * sizeof(int)))
 			return (free(s_dup), path);
 		ret = search(s_dup, sol, path, depth);
 		if (ret)
