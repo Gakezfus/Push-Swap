@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:55:47 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 18:19:37 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 18:37:04 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,27 +87,31 @@ int	check_order_in_stack(int *stack, int sortee)
 
 	index = 0;
 	// if in between in size
-	while (index < stack[0])
+	while (index < stack[0] - 1)
 	{
 		if (stack[stack[0]] < sortee && sortee < stack[1])
 			return (index);
-		else if (stack[index - 1] < sortee && sortee < stack[index])
+		else if (stack[index + 1] < sortee && sortee < stack[index + 2])
 			return (index);
 		index++;
 	}
 	index = 0;
 	// Sortee is now biggest or smallest. Here I check for biggest. Implementation TODO
-	while (index < stack[0] || sortee > stack[index + 1])
+	while (index < stack[0] - 1|| sortee > stack[index + 1])
 	{
-		if (index == stack[0] - 2 || stack[index + 1] > stack[index + 2])
+		if (stack[stack[0]] < sortee && sortee > stack[1])
+			return (index);
+		else if (stack[index + 1] < sortee && sortee > stack[index + 2])
 			return (index);
 		index++;
 	}
 	index = 0;
 	// Check for smallest. Implementation TODO
-	while (index < stack[0] || sortee < stack[index + 1])
+	while (index < stack[0] - 1 || sortee < stack[index + 1])
 	{
-		if (index == stack[0] - 2 || stack[index + 1] > stack[index + 2])
+		if (stack[stack[0]] > sortee && sortee < stack[1])
+			return (index);
+		else if (stack[index + 1] > sortee && sortee < stack[index + 2])
 			return (index);
 		index++;
 	}
