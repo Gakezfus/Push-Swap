@@ -6,12 +6,14 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:52:51 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/25 05:56:30 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 03:26:31 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+
+#include "libft.h"
 
 #define INIT_LEN 5
 
@@ -38,5 +40,11 @@ int		check_sorted(int *data, int len);
 
 // from brute_sort.c
 int	brute_sort(int *stack[2], t_list **log);
+
+// from turk_algo.c
+int		turk_setup(int *stack[2], t_list **log, int sol_len);
+
+// from turk_b_to_a.c
+int	shift_to_a(int pos, int *stack[2], int *score[3], t_list **log);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 14:49:27 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/25 05:59:59 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 04:33:52 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,21 @@ static char	*solve(int *data, int len)
 
 	sol = malloc(len * sizeof(int));
 	stack[1] = ft_calloc((len + 1), sizeof(int));
-	if (stack[1] == NULL || sol == NULL)
-		return (NULL);
-	find_sol(sol, data, len);
+	if (stack[1] == NULL || sol == NULL || find_sol(sol, data, len))
+		return (free(sol), NULL);
 	stack[0] = data;
 	ft_memmove(stack[0] + 1, stack[0], len * sizeof(int));
 	stack[0][0] = len;
 	to_return = NULL;
 	log = NULL;
 	if (init_var(sol, stack, &log) || brute_sort(stack, &log) ||
-	process_log(&to_return, log) || )
+	turk_setup(stack, &log, len) ||
+	process_log(&to_return, log))
 		return (free(sol), free(stack[1]), ft_lstclear(&log, free), NULL);
 	for (int i = 0; i < stack[0][0] + 1; i++)
 	{
 		printf("stack[%i]: %i\n", i, stack[0][i]);
 	}
-	// TODO: Turk algo before process_log.
 	return (free(sol), free(stack[1]), ft_lstclear(&log, free), to_return);
 }
 
@@ -81,7 +80,7 @@ static int	find_sol(int *sol, int *data, int len)
 	ft_memmove(sol, data, len * sizeof(int));
 	merge_sort(sol, len);
 	if (check_sorted(sol, len))
-		return (free(sol), 1);
+		return (1);
 	return (0);
 }
 
@@ -125,8 +124,8 @@ static int	arrange_init(int init[INIT_LEN], int *stack[2], t_list **log)
 	ft_memcpy(stack_1, stack[0] + 1, len * sizeof(int));
 	while (index < len)
 	{
-		if (ft_memchr(init, stack_1[index++],
-			INIT_LEN * sizeof(int)))
+		if (ft_intchr(init, stack_1[index],
+			INIT_LEN))
 		{
 			if (act(5, stack, log))
 				return (free(stack_1), 1);
@@ -134,6 +133,7 @@ static int	arrange_init(int init[INIT_LEN], int *stack[2], t_list **log)
 		else
 			if (act(4, stack, log))
 				return (free(stack_1), 1);
+		index++;
 	}
 	return (free(stack_1), 0);
 }

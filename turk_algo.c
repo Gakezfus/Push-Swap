@@ -6,38 +6,47 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:55:47 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/25 17:16:41 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 04:20:09 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 #include <limits.h>
+#include <stdlib.h>
 
-int		turk_setup(int *stack[2], t_list *log, int *fin_sol);
-void	turk_sort(int *stack[2], int *score[3], t_list *log);
-void	calc_score_a(int *stack[2], int *score[3]);
-void	calc_score_b(int *stack[2], int *score[3]);
+#include <stdio.h>
 
-int	turk_setup(int *stack[2], t_list *log, int *fin_sol)
+int			turk_setup(int *stack[2], t_list **log, int sol_len);
+static int	turk_sort(int *stack[2], int *score[3], t_list **log);
+static void	calc_score_a(int *stack[2], int *score[3]);
+static void	calc_score_b(int *stack[2], int *score[3]);
+
+int	turk_setup(int *stack[2], t_list **log, int sol_len)
 {
-	static int	score_mem = stack[1][0] * sizeof(int);
-	static int	*score[3] = {malloc(score_mem), malloc(score_mem),
-		malloc(score_mem)};
+	int	*score[3];
+	int	score_mem;
 	
+	score_mem = stack[1][0] * sizeof(int);
+	score[0] = malloc(score_mem);
+	score[1] = malloc(score_mem);
+	score[2] = malloc(score_mem);
 	if (!score[0] || !score[1] || !score[1])
 		return (free(score[0]), free(score[1]), free(score[2]), 1);
-	while (memcmp(stack[0] + 1, fin_sol, stack[0] * sizeof(int)))
+	while (!(stack[0][0] == sol_len && check_sorted(stack[0] + 1, sol_len)))
 	{
-		ft_bzero(score[0], score_mem * sizeof(int));
-		ft_bzero(score[1], score_mem * sizeof(int));
-		ft_bzero(score[2], score_mem * sizeof(int));
-		turk_sort(stack, score, log);
+		// printf("sol_len: %i\n", sol_len);
+		// printf("stack len: %i\n", stack[0][0]);
+		ft_bzero(score[0], stack[1][0] * sizeof(int));
+		ft_bzero(score[1], stack[1][0] * sizeof(int));
+		ft_bzero(score[2], stack[1][0] * sizeof(int));
+		if (turk_sort(stack, score, log))
+			return (free(score[0]), free(score[1]), free(score[2]), 1);
 	}
 	return (free(score[0]), free(score[1]), free(score[2]), 0);
 }
 
-void	turk_sort(int *stack[2], int *score[3], t_list *log)
+int	turk_sort(int *stack[2], int *score[3], t_list **log)
 {
 	int	lowest;
 	int	index;
@@ -52,11 +61,13 @@ void	turk_sort(int *stack[2], int *score[3], t_list *log)
 		if (score[0][index] <= lowest)
 		{
 			lowest = score[0][index];
-			pos = index;	
+			pos = index - 1;
 		}
+		index++;
 	}
-	//TBD
-	shift_to_a(stack[1][index + 1], stack, score, log);
+	if (shift_to_a(pos, stack, score, log))
+		return (1);
+	return (0);
 }
 
 void	calc_score_a(int *stack[2], int *score[3])
@@ -67,12 +78,12 @@ void	calc_score_a(int *stack[2], int *score[3])
 	while (index[0] < stack[1][0])
 	{
 		index[1] = 0;
-		while (stack[0][index[1] + 1] < stack[1][index[0] + 1])
+		while (stack[0][index[1] + 1] < stack[1][index[0]])
 			index[1]++;
-		if (score[1] = (index[1] > stack[0] - index[1]))
-			score[0] += stack[0] - index[1] + 1;
+		if ((score[1][index[0]] = index[1] > stack[0][index[0]] - index[1]))
+			score[0][index[0]] += stack[0][0] - index[1];
 		else
-			score[0] += index[1];
+			score[0][index[0]] += index[1];
 		index[0]++;
 	}
 }
@@ -84,10 +95,10 @@ void	calc_score_b(int *stack[2], int *score[3])
 	index = 0;
 	while (index < stack[1][0])
 	{
-		if (score[2] = (index > stack[1] - index))
-			score[0] += stack[1] - index + 1;
+		if ((score[2][index] = (index > stack[1][index + 1] - index)))
+			score[0][index] += stack[1][0] - index;
 		else
-			score[0] += index;
-		index;
+			score[0][index] += index;
+		index++;
 	}
 }

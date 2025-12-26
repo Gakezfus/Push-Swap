@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:52:35 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/24 12:28:36 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 04:27:20 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	act(int act_no, int *stack[2], t_list **log)
 	if (act_no == 7)
 		rot(stack[0], 1);
 	if (act_no == 8)
-		rot(stack[0], 1);
+		rot(stack[1], 1);
 	if (act_no >= 9)
 		act_2(act_no, stack, log);
 	//TODO Function

@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 14:14:04 by echoo             #+#    #+#             */
-/*   Updated: 2025/12/23 02:35:41 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 04:07:58 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ int		ft_toupper(int c);
 
 // Own functions
 long long int	ft_atoll(const char *str);
+// n is number of ints, NOT number of bytes
+int	*ft_intchr(const int *s, int c, size_t n);
 
 #endif

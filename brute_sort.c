@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:52:17 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/24 14:12:36 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 03:28:30 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	brute_sort(int *stack[2], t_list **log)
 	p_dup[0] = 0;
 	while (!path && depth[0]++)
 		path = search(stack[0], sol, p_dup, depth);
-	printf("sol_len: %i\n", *path);
 	while (index < path[0] + 1)
 	{
 		if (act("157"[path[index] - 1] - '0', stack, log))
