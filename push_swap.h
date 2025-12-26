@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:52:51 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 14:54:57 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 15:35:24 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft.h"
 
-# define INIT_LEN 5
+# define INIT_LEN 4
 
 // from process_log.c
 int		process_log(char **to_return, t_list *log);

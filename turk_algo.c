@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:55:47 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 19:57:22 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 15:37:01 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,18 @@ int	turk_sort(int *stack[2], int *score[3], t_list **log)
 
 	calc_score_a(stack, score);
 	calc_score_b(stack, score);
+	printf("stack[0] len: %i\n", stack[0][0]);
+	for (int i = 0; i < stack[0][0]; i++)
+	{
+		printf("stack[0][%i]: %i\n", i + 1, stack[0][i + 1]);
+	}
+	printf("\n");
+	printf("stack[1] len: %i\n", stack[1][0]);
+	for (int i = 0; i < stack[1][0]; i++)
+	{
+		printf("stack[1][%i]: %i, score[0]: %i, score[1]: %i, score[2]: %i\n", i + 1, stack[1][i + 1], score[0][i], score[1][i],  score[2][i]);
+	}
+	printf("\n\n");
 	index = 0;
 	lowest = INT_MAX;
 	while (index < stack[1][0])
@@ -76,10 +88,10 @@ void	calc_score_a(int *stack[2], int *score[3])
 	while (index[0] < stack[1][0])
 	{
 		index[1] = 0;
-		while (stack[0][index[1] + 1] < stack[1][index[0]]
-				&& index[1] <= stack[0][0])
+		while (stack[0][index[1] + 1] < stack[1][index[0] + 1]
+				&& index[1] < stack[0][0] - 1)
 			index[1]++;
-		score[1][index[0]] = index[1] > stack[0][index[0]] - index[1];
+		score[1][index[0]] = index[1] > stack[0][0] - index[1];
 		if (score[1][index[0]])
 			score[0][index[0]] += stack[0][0] - index[1];
 		else
@@ -95,7 +107,7 @@ void	calc_score_b(int *stack[2], int *score[3])
 	index = 0;
 	while (index < stack[1][0])
 	{
-		score[2][index] = (index > stack[1][index + 1] - index);
+		score[2][index] = index > stack[1][0] - index;
 		if (score[2][index])
 			score[0][index] += stack[1][0] - index;
 		else

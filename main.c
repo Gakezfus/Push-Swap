@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 14:49:27 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 20:01:33 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 15:31:56 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	main(int argc, char *argv[])
 	if (*to_write == 0)
 		return (free(data), free(to_write), 0);
 	index = 0;
-	// while (to_write[index])
-	// 	write(1, to_write + index++, 1);
+	while (to_write[index])
+		write(1, to_write + index++, 1);
 	return (free(data), free(to_write), 0);
 }
 

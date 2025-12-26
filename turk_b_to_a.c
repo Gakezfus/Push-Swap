@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 02:03:28 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 19:55:53 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 14:38:31 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ int	shift_to_a(int pos, int *stack[2], int *score[3], t_list **log)
 	index = 0;
 	while (element > stack[0][index + 1] && index < stack[0][0])
 		index++;
+	// printf("rev: %i\n", score[1][pos]);
+	// printf("element: %i\n", element);
+	// printf("ori_index: %i\n", index);
 	if (score[1][pos])
-		index = stack[0][0] - index - 1;
+		index = stack[0][0] - index;
 	if (b_to_a(index, stack, score[1][pos], log))
 		return (1);
 	return (0);
