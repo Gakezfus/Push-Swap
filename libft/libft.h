@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 14:14:04 by echoo             #+#    #+#             */
-/*   Updated: 2025/12/26 14:50:56 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 17:27:58 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,8 @@ long long int	ft_atoll(const char *str);
 
 // n is number of ints, NOT number of bytes
 int				*ft_intchr(const int *s, int c, size_t n);
+
+// n is number of ints, NOT number of bytes
+int				*ft_int_arr_dup(const int *i, size_t src_len, size_t dst_len);
 
 #endif

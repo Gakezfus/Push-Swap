@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:55:47 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 15:37:01 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 18:19:37 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int			turk_setup(int *stack[2], t_list **log, int sol_len);
 static int	turk_sort(int *stack[2], int *score[3], t_list **log);
 static void	calc_score_a(int *stack[2], int *score[3]);
 static void	calc_score_b(int *stack[2], int *score[3]);
+int			check_order_in_stack(int *stack, int sortee);
 
 int	turk_setup(int *stack[2], t_list **log, int sol_len)
 {
@@ -80,23 +81,54 @@ int	turk_sort(int *stack[2], int *score[3], t_list **log)
 	return (0);
 }
 
+int	check_order_in_stack(int *stack, int sortee)
+{
+	int	index;
+
+	index = 0;
+	// if in between in size
+	while (index < stack[0])
+	{
+		if (stack[stack[0]] < sortee && sortee < stack[1])
+			return (index);
+		else if (stack[index - 1] < sortee && sortee < stack[index])
+			return (index);
+		index++;
+	}
+	index = 0;
+	// Sortee is now biggest or smallest. Here I check for biggest. Implementation TODO
+	while (index < stack[0] || sortee > stack[index + 1])
+	{
+		if (index == stack[0] - 2 || stack[index + 1] > stack[index + 2])
+			return (index);
+		index++;
+	}
+	index = 0;
+	// Check for smallest. Implementation TODO
+	while (index < stack[0] || sortee < stack[index + 1])
+	{
+		if (index == stack[0] - 2 || stack[index + 1] > stack[index + 2])
+			return (index);
+		index++;
+	}
+	return (0);
+}
+
 void	calc_score_a(int *stack[2], int *score[3])
 {
-	int	index[2];
+	int	index;
+	int	pos;
 
-	index[0] = 0;
-	while (index[0] < stack[1][0])
+	index = 0;
+	while (index < stack[1][0])
 	{
-		index[1] = 0;
-		while (stack[0][index[1] + 1] < stack[1][index[0] + 1]
-				&& index[1] < stack[0][0] - 1)
-			index[1]++;
-		score[1][index[0]] = index[1] > stack[0][0] - index[1];
-		if (score[1][index[0]])
-			score[0][index[0]] += stack[0][0] - index[1];
+		pos = check_order_in_stack(stack[0], stack[1][index + 1]);
+		score[1][index] = pos > stack[0][0] - pos;
+		if (score[1][index])
+			score[0][index] += stack[0][0] - pos;
 		else
-			score[0][index[0]] += index[1];
-		index[0]++;
+			score[0][index] += pos;
+		index++;
 	}
 }
 

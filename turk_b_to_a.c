@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 02:03:28 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 14:38:31 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/26 17:17:49 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,5 @@ int	b_to_a(int pos, int *stack[2], int rev, t_list **log)
 	}
 	if (act(3, stack, log))
 		return (1);
-	index = 0;
-	while (index < pos + rev)
-	{
-		if (act(7 - rev * 2, stack, log))
-			return (1);
-		index++;
-	}
 	return (0);
 }
