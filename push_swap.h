@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:52:51 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 15:35:24 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/27 03:53:55 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft.h"
 
-# define INIT_LEN 4
+# define INIT_LEN 5
 
 // from process_log.c
 int		process_log(char **to_return, t_list *log);
@@ -43,6 +43,7 @@ int		brute_sort(int *stack[2], t_list **log);
 
 // from turk_algo.c
 int		turk_setup(int *stack[2], t_list **log, int sol_len);
+int		check_order_in_stack(int *stack, int sortee);
 
 // from turk_b_to_a.c
 int		shift_to_a(int pos, int *stack[2], int *score[3], t_list **log);

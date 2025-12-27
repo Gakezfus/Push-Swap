@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:52:17 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 13:32:06 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/27 03:26:20 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	brute_sort(int *stack[2], t_list **log)
 	while (index < path[0] + 1)
 	{
 		if (act("157"[path[index] - 1] - '0', stack, log))
-			return (free(p_dup), free(sol), free(path), 1);
+			return (free(sol), free(path), 1);
 		index++;
 	}
-	return (free(p_dup), free(sol), free(path), 0);
+	return (free(sol), free(path), 0);
 }
 
 static int	*search(int *stack, int *sol, int *path, int *depth)
