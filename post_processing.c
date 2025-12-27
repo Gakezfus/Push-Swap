@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 09:38:47 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/27 10:15:44 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/27 16:33:19 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	post_processing(int *path, int *dup, int int_len)
 				c_index++;
 			row = c_index;
 			c_index = 0;
+			// When encountering 6665, c_index == 1, so 66 will be replace by 10, causing bug. 
 			while (c_index < row &&
 					(math(path[p_index]) == path[p_index + row + c_index]))
 				c_index++;
@@ -41,7 +42,6 @@ void	post_processing(int *path, int *dup, int int_len)
 			// add the appropriate elements to dup and move p_index accordingly
 		}
 		update(path, dup, c_index, &p_index);
-		printf("p_index: %i\n", p_index);
 	}
 	// for (int i = 0; i < int_len; i++)
 	// {
@@ -55,7 +55,7 @@ void	update(int *path, int *dup, int c_index, int *p_index)
 	int			rr_act;
 	int			index;
 
-	if (c_index)
+	if (!c_index)
 		dup[dup_index++] = path[(*p_index)++];
 	else
 	{
