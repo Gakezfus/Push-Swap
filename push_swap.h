@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:52:51 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/27 03:53:55 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/27 09:56:42 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,8 @@ int		check_order_in_stack(int *stack, int sortee);
 
 // from turk_b_to_a.c
 int		shift_to_a(int pos, int *stack[2], int *score[3], t_list **log);
+
+// from push_swap.h
+void	post_processing(int *path, int *dup, int int_len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 10:52:29 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/27 07:45:06 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2025/12/27 10:09:15 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	process_log(char **to_return, t_list *log)
 		return (ft_lstclear(&log, free), 1);
 	log_to_int(path, log);
 	post_processing(path, dup, int_len);
+	// free(path);
+	// path = dup;
 	convert_log(to_return, path, int_len);
 	return (0);
 }
