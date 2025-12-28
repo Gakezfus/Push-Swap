@@ -120,6 +120,9 @@ static int	arrange_init(int init[INIT_LEN], int *stack[2], t_list **log)
 	if (stack_1 == NULL)
 		return (free(stack_1), 1);
 	ft_memcpy(stack_1, stack[0] + 1, len * sizeof(int));
+	// Perhaps put this function in the chunk? Something like:
+	if (a_to_b(stack, init, log))
+		return (0);
 	while (index < len)
 	{
 		if (ft_intchr(init, stack_1[index],
