@@ -41,18 +41,8 @@ int	process_log(char **to_return, t_list *log)
 		return (ft_lstclear(&log, free), 1);
 	log_to_int(path, log);
 	post_processing(path, dup, int_len);
-	for (int i = 0; i < int_len; i++)
-	{
-		printf("%i", path[i]);
-	}
-	printf("\n");
 	free(path);
 	path = dup;
-	for (int i = 0; i < int_len; i++)
-	{
-		printf("%i", path[i]);
-	}
-	printf("\n");
 	convert_log(to_return, path, int_len);
 	return (0);
 }

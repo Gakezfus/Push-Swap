@@ -142,15 +142,24 @@ void	calc_score_a(int *stack[2], int *score[3])
 void	calc_score_b(int *stack[2], int *score[3])
 {
 	int	index;
+	int	diff;
+	int	to_add;
 
 	index = 0;
+	diff = score[0][index];
 	while (index < stack[1][0])
 	{
+		diff = score[0][index];
 		score[2][index] = index > stack[1][0] - index;
 		if (score[2][index])
-			score[0][index] += stack[1][0] - index;
+			to_add = stack[1][0] - index;
 		else
-			score[0][index] += index;
+			to_add = index;
+		score[0][index] +=	to_add;
+		if (diff > to_add)
+			diff = to_add;
+		if (score[1][index] == score[2][index])
+			score[0][index] -= diff;
 		index++;
 	}
 }

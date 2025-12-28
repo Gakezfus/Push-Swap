@@ -28,7 +28,7 @@ int	main(int argc, char *argv[])
 {
 	int		*data;
 	char	*to_write;
-	// int		index;
+	int		index;
 
 	if (argc < 2)
 		return (1);
@@ -40,9 +40,9 @@ int	main(int argc, char *argv[])
 		return (free(data), write(2, "Error\n", 6), 1);
 	if (*to_write == 0)
 		return (free(data), free(to_write), 0);
-	// index = 0;
-	// while (to_write[index])
-	// 	write(1, to_write + index++, 1);
+	index = 0;
+	while (to_write[index])
+		write(1, to_write + index++, 1);
 	return (free(data), free(to_write), 0);
 }
 

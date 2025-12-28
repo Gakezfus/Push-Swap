@@ -14,7 +14,7 @@
 
 #include "push_swap.h"
 
-void	update(int *path, int *dup, int c_index, int *p_index);
+void	update(int *path, int *dup, int indexes[3]);
 int		math(int act);
 
 // indexes[0] represents the index of path, indexes[1] is used to search the
@@ -28,7 +28,7 @@ void	post_processing(int *path, int *dup, int int_len)
 	{
 		indexes[2] = 0;
 		indexes[1] = 0;
-		if (5 <= path[indexes[0]] && path[indexes[0]] < 8)
+		if (5 <= path[indexes[0]] && path[indexes[0]] <= 8)
 		{
 			while (path[indexes[0]] == path[indexes[0] + indexes[1]])
 				indexes[1]++;
@@ -42,7 +42,7 @@ void	post_processing(int *path, int *dup, int int_len)
 			// replaced by rr or rrr. If 0, just copy over. Otherwise,
 			// add the appropriate elements to dup and move indexes[0] accordingly
 		}
-		update(path, dup, indexes[1], &indexes[0]);
+		update(path, dup, indexes);
 	}
 	// for (int i = 0; i < int_len; i++)
 	// {
@@ -50,25 +50,28 @@ void	post_processing(int *path, int *dup, int int_len)
 	// }
 }
 
-void	update(int *path, int *dup, int c_index, int *p_index)
+void	update(int *path, int *dup, int indexes[3])
 {
 	static int	dup_index = 0;
 	int			rr_act;
 	int			index;
 
-	if (!c_index)
-		dup[dup_index++] = path[(*p_index)++];
+	if (!indexes[1])
+		dup[dup_index++] = path[indexes[0]++];
 	else
 	{
 		rr_act = 10;
-		if (path[*p_index] >= 7)
+		if (path[indexes[0]] >= 7)
 			rr_act = 11;
 		index = 0;
-		while (index++ < c_index)
+		while (index++ < indexes[2] - indexes[1])
+			dup[dup_index++] = path[indexes[0]++];
+		index = 0;
+		while (index++ < indexes[1])
 		{
 			dup[dup_index] = rr_act;
 			dup_index++;
-			*p_index += 2;
+			indexes[0] += 2;
 		}
 	}
 }
