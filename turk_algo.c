@@ -27,6 +27,7 @@ int	turk_setup(int *stack[2], t_list **log, int sol_len)
 {
 	int	*score[3];
 	int	score_mem;
+	int	to_rra;
 
 	score_mem = stack[1][0] * sizeof(int);
 	score[0] = malloc(score_mem);
@@ -42,8 +43,9 @@ int	turk_setup(int *stack[2], t_list **log, int sol_len)
 		if (turk_sort(stack, score, log))
 			return (free(score[0]), free(score[1]), free(score[2]), 1);
 	}
+	to_rra = check_rra(stack[0]);
 	while (check_sorted(stack[0] + 1, stack[0][0]))
-		act(5, stack, log);
+		act(5 + 2 * to_rra, stack, log);
 	return (free(score[0]), free(score[1]), free(score[2]), 0);
 }
 
@@ -55,18 +57,6 @@ int	turk_sort(int *stack[2], int *score[3], t_list **log)
 
 	calc_score_a(stack, score);
 	calc_score_b(stack, score);
-	// printf("stack[0] len: %i\n", stack[0][0]);
-	// for (int i = 0; i < stack[0][0]; i++)
-	// {
-	// 	printf("stack[0][%i]: %i\n", i + 1, stack[0][i + 1]);
-	// }
-	// printf("\n");
-	// printf("stack[1] len: %i\n", stack[1][0]);
-	// for (int i = 0; i < stack[1][0]; i++)
-	// {
-	// 	printf("stack[1][%i]: %i, score[0]: %i, score[1]: %i, score[2]: %i\n", i + 1, stack[1][i + 1], score[0][i], score[1][i],  score[2][i]);
-	// }
-	// printf("\n\n");
 	index = 0;
 	lowest = INT_MAX;
 	while (index < stack[1][0])
@@ -90,7 +80,6 @@ int	check_order_in_stack(int *stack, int sortee)
 	int	largest;
 
 	index = 0;
-	// if in between in size
 	while (index < stack[0])
 	{
 		if (index == 0)
@@ -105,17 +94,13 @@ int	check_order_in_stack(int *stack, int sortee)
 	index = 1;
 	pos = 0;
 	largest = INT_MIN;
-	// Sortee is now biggest or smallest. Both go to the same place: Ahead of biggest
 	while (index < stack[0] + 1)
 	{
-		// NOTE: What if the biggest is all the way at the back?
 		if (stack[index] > largest)
 		{
 			largest = stack[index];
 			pos = index - 1;
 		}
-		// printf("largest: %i\n", largest);
-		// printf("pos: %i\n", pos);
 		index++;
 	}
 	return (pos + 1);

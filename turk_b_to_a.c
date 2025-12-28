@@ -64,3 +64,15 @@ int	b_to_a(int pos, int *stack[2], int rev, t_list **log)
 		return (1);
 	return (0);
 }
+
+int	check_rra(int *stack)
+{
+	int	index;
+
+	index = 1;
+	while (index < stack[0] && stack[index] < stack[index + 1])
+		index++;
+	if (index > stack[0] / 2)
+		return (1);
+	return (0);
+}

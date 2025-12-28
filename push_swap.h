@@ -47,6 +47,7 @@ int		check_order_in_stack(int *stack, int sortee);
 
 // from turk_b_to_a.c
 int		shift_to_a(int pos, int *stack[2], int *score[3], t_list **log);
+int		check_rra(int *stack);
 
 // from push_swap.h
 void	post_processing(int *path, int *dup, int int_len);
