@@ -37,6 +37,7 @@ int		con_int(int item_count, char *argv[], int *data);
 // from merge_sort.c
 void	merge_sort(int *data, int len);
 int		check_sorted(int *data, int len);
+int		get_sol_index(int i, int *sol);
 
 // from brute_sort.c
 int		brute_sort(int *stack[2], t_list **log);
@@ -51,5 +52,9 @@ int		check_rra(int *stack);
 
 // from push_swap.h
 void	post_processing(int *path, int *dup, int int_len);
+
+// from init_a_to_b.c
+int		a_to_b(int *stack_1, int *stack[2], int init[INIT_LEN], t_list **log);
+void	make_chunk(int *stack[2], int init[INIT_LEN], int *chunk, int *sol);
 
 #endif

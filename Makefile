@@ -29,7 +29,7 @@ print:
 	echo $(SOURCES)
 
 $(LIBFT):
-	make bonus -C libft
+	make -C libft
 
 %.o: %.c
 	cc $(CFLAGS) -MMD -MP -c $< -o $@ 

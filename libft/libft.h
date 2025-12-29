@@ -66,7 +66,8 @@ char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 
-// Own functions
+// OWN FUNCTIONS
+
 long long int	ft_atoll(const char *str);
 
 // n is number of ints, NOT number of bytes
@@ -74,5 +75,8 @@ int				*ft_intchr(const int *s, int c, size_t n);
 
 // n is number of ints, NOT number of bytes
 int				*ft_int_arr_dup(const int *i, size_t src_len, size_t dst_len);
+
+// returns the int difference between x and y
+unsigned int	ft_idim(int x, int y);
 
 #endif

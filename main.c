@@ -21,7 +21,8 @@
 
 static char	*solve(int *data, int len);
 static int	init_var(int *solution, int *stack[2], t_list **log);
-static int	arrange_init(int init[INIT_LEN], int *stack[2], t_list **log);
+static int	arrange_init(int init[INIT_LEN], int *stack[2], t_list **log,
+			int *sol);
 static int	find_sol(int *sol, int *data, int len);
 
 int	main(int argc, char *argv[])
@@ -100,41 +101,28 @@ static int	init_var(int *solution, int *stack[2], t_list **log)
 		}
 	}
 	if (stack[0][0] >= INIT_LEN)
-		if (arrange_init(init, stack, log))
+		if (arrange_init(init, stack, log, solution))
 			return (1);
 	return (0);
 }
 
 // Function is supposed to keep the 4 in stack A, send the rest to stack B,
-// then sort stack A. Function is WIP, necessary to finish the actions
-// function first in actions.c
-static int	arrange_init(int init[INIT_LEN], int *stack[2], t_list **log)
+// then sort stack A.
+static int	arrange_init(int init[INIT_LEN], int *stack[2], t_list **log, int *sol)
 {
-	int	index;
-	int	len;
 	int	*stack_1;
+	int	*chunk;
+	int	len;
 
-	index = 0;
 	len = stack[0][0];
 	stack_1 = malloc(len * sizeof(int));
-	if (stack_1 == NULL)
-		return (free(stack_1), 1);
+	chunk = malloc(len * sizeof(int));
+	if (chunk == NULL || stack_1 == NULL)
+		return (free(chunk), 1);
+	make_chunk(stack, init, chunk, sol);
 	ft_memcpy(stack_1, stack[0] + 1, len * sizeof(int));
 	// Perhaps put this function in the chunk? Something like:
-	if (a_to_b(stack, init, log))
-		return (0);
-	while (index < len)
-	{
-		if (ft_intchr(init, stack_1[index],
-				INIT_LEN))
-		{
-			if (act(5, stack, log))
-				return (free(stack_1), 1);
-		}
-		else
-			if (act(4, stack, log))
-				return (free(stack_1), 1);
-		index++;
-	}
+	if (a_to_b(stack_1, stack, init, log))
+		return (free(stack_1), 1);
 	return (free(stack_1), 0);
 }
