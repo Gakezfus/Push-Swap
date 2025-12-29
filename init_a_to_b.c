@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 12:15:31 by elkan             #+#    #+#             */
-/*   Updated: 2025/12/29 20:57:31 by elkan            ###   ########.fr       */
+/*   Updated: 2025/12/29 23:50:06 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,14 @@
 #include "libft.h"
 #include "push_swap.h"
 
-int	a_to_b(int *stack_1, int *stack[2], int init[INIT_LEN], t_list **log);
-int	*make_chunk(int *stack[2], int *chunk);
-int	*get_longest_chunk(int *stack[2], int* c_data[3], int *sol);
+int		a_to_b(int *stack_1, int *stack[2], int init[INIT_LEN], t_list **log);
+int		*make_chunk(int *stack[2], int *sol);
+int		*get_longest_chunk(int *stack[2], int* c_data[3], int *sol);
+int		*build_chunk(int *stack[2], int* c_data[3], int *sol);
+void	find_chunk(int *longest_len, int *longest_index,
+		int *stack[2], int *c_data[3]);
+
+// chunk = make_chunk(stack, sol);
 
 int	a_to_b(int *stack_1, int *stack[2], int init[INIT_LEN], t_list **log)
 {
@@ -95,12 +100,12 @@ int	*get_longest_chunk(int *stack[2], int* c_data[3], int *sol)
 		c_data[2][index[0]] = longest_index;
 		index[0]++;
 	}
-	return (make_chunk(stack, c_data, sol));
+	return (build_chunk(stack, c_data, sol));
 }
 
 
 // Code should theoretically return chunk correctly. Needs testing
-int	*make_chunk(int *stack[2], int* c_data[3], int *sol)
+int	*build_chunk(int *stack[2], int* c_data[3], int *sol)
 {
 	int	index;
 	int	longest_len;
@@ -109,29 +114,32 @@ int	*make_chunk(int *stack[2], int* c_data[3], int *sol)
 
 	find_chunk(&longest_len, &longest_index, stack, c_data);
 	index = 0;
-	chunk = malloc(longest_len * sizeof(int));
+	chunk = malloc((longest_len + 1) * sizeof(int));
 	if (chunk == NULL)
 		return (NULL);
-	while (c_data[1][longest_index] >= 1)
+	while (index < longest_len)
 	{
-		chunk[index] = sol[c_data[0][longest_index]];
+		chunk[index + 1] = sol[c_data[0][longest_index]];
 		longest_index = c_data[2][longest_index];
+		chunk[0]++;
+		index++;
 	}
 	return (chunk);
 }
 
-void	find_chunk(int *longest_len, int *longest_index, int *stack[2], int *c_data[3])
+void	find_chunk(int *longest_len, int *longest_index,
+		int *stack[2], int *c_data[3])
 {
 	int	index;
 
 	ft_set_zero(3, longest_len, longest_index, &index);
-	while (index < stack[0])
+	while (index < stack[0][0])
 	{
 		if (c_data[1][index] > *longest_len)
 		{
 			*longest_len = c_data[1][index];
 			*longest_index = index;
 		}
+		index++;
 	}
 }
-

@@ -30,17 +30,14 @@ void	post_processing(int *path, int *dup, int int_len)
 		indexes[1] = 0;
 		if (5 <= path[indexes[0]] && path[indexes[0]] <= 8)
 		{
-			while (path[indexes[0]] == path[indexes[0] + indexes[1]])
+			while (indexes[0] + indexes[1] < int_len && path[indexes[0]] == path[indexes[0] + indexes[1]])
+			{
 				indexes[1]++;
+			}	
 			indexes[2] = indexes[1];
 			indexes[1] = 0;
-			// When encountering 6665, indexes[1] == 1, so 66 will be replace by 10, causing bug. 
-			while (indexes[1] < indexes[2] &&
-					(math(path[indexes[0]]) == path[indexes[0] + indexes[2] + indexes[1]]))
+			while (indexes[0] + indexes[2] + indexes[1] < int_len && indexes[1] < indexes[2] && (math(path[indexes[0]]) == path[indexes[0] + indexes[2] + indexes[1]]))
 				indexes[1]++;
-			// indexes[1] represents the number of "in a rows" that can be
-			// replaced by rr or rrr. If 0, just copy over. Otherwise,
-			// add the appropriate elements to dup and move indexes[0] accordingly
 		}
 		update(path, dup, indexes);
 	}
