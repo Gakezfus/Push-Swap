@@ -20,7 +20,7 @@ ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c \
 ft_toupper.c ft_atoll.c ft_intchr.c ft_int_arr_dup.c ft_idim.c \
 ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c \
 ft_lstdelone_bonus.c ft_lstiter_bonus.c ft_lstlast_bonus.c ft_lstmap_bonus.c \
-ft_lstnew_bonus.c ft_lstsize_bonus.c
+ft_lstnew_bonus.c ft_lstsize_bonus.c ft_set_zero.c
 
 
 OBJECTS = $(SOURCES:%.c=%.o)

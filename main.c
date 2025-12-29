@@ -29,7 +29,7 @@ int	main(int argc, char *argv[])
 {
 	int		*data;
 	char	*to_write;
-	int		index;
+	// int		index;
 
 	if (argc < 2)
 		return (1);
@@ -41,9 +41,9 @@ int	main(int argc, char *argv[])
 		return (free(data), write(2, "Error\n", 6), 1);
 	if (*to_write == 0)
 		return (free(data), free(to_write), 0);
-	index = 0;
-	while (to_write[index])
-		write(1, to_write + index++, 1);
+	// index = 0;
+	// while (to_write[index])
+	// 	write(1, to_write + index++, 1);
 	return (free(data), free(to_write), 0);
 }
 
@@ -119,10 +119,11 @@ static int	arrange_init(int init[INIT_LEN], int *stack[2], t_list **log, int *so
 	chunk = malloc(len * sizeof(int));
 	if (chunk == NULL || stack_1 == NULL)
 		return (free(chunk), 1);
-	make_chunk(stack, init, chunk, sol);
+	make_chunk(stack, sol);
 	ft_memcpy(stack_1, stack[0] + 1, len * sizeof(int));
 	// Perhaps put this function in the chunk? Something like:
 	if (a_to_b(stack_1, stack, init, log))
 		return (free(stack_1), 1);
+	(void) sol;
 	return (free(stack_1), 0);
 }

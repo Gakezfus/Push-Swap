@@ -39,6 +39,16 @@ void	merge_sort(int *data, int len)
 	}
 }
 
+int	get_sol_index(int i, int *sol)
+{
+	int	index;
+
+	index = 0;
+	while (!(i == sol[index]))
+		index++;
+	return (index);
+}
+
 static void	merge(int *data, int len, int index[3])
 {
 	int	*blk1;

@@ -79,4 +79,7 @@ int				*ft_int_arr_dup(const int *i, size_t src_len, size_t dst_len);
 // returns the int difference between x and y
 unsigned int	ft_idim(int x, int y);
 
+// sets the value of all ints pointed to by the function to zero
+void 			ft_set_zero(int num, ...);
+
 #endif

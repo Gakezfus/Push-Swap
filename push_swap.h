@@ -55,6 +55,6 @@ void	post_processing(int *path, int *dup, int int_len);
 
 // from init_a_to_b.c
 int		a_to_b(int *stack_1, int *stack[2], int init[INIT_LEN], t_list **log);
-void	make_chunk(int *stack[2], int init[INIT_LEN], int *chunk, int *sol);
+int		*make_chunk(int *stack[2], int *chunk);
 
 #endif
