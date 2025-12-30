@@ -20,6 +20,7 @@
 static int	*search(int *stack, int *sol, int *path, int *depth);
 static int	*search_2(int *stack, int *sol, int *path, int *depth);
 
+// Sol here is for the sorted order of current elements, not ALL elements
 int	brute_sort(int *stack[2], t_list **log)
 {
 	static int	*path = NULL;
@@ -42,10 +43,16 @@ int	brute_sort(int *stack[2], t_list **log)
 	while (index < path[0] + 1)
 	{
 		if (act("157"[path[index] - 1] - '0', stack, log))
-			return (free(sol), free(path), 1);
+		{
+			if (path[0] == 0)
+				return (free(sol), free(path), 1);
+			return (free(sol), free(p_dup), free(path), 1);
+		}
 		index++;
 	}
-	return (free(sol), free(path), 0);
+	if (path[0] == 0)
+		return (free(sol), free(path), 0);
+	return (free(sol), free(p_dup), free(path), 0);
 }
 
 static int	*search(int *stack, int *sol, int *path, int *depth)

@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_prtnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 17:33:18 by echoo             #+#    #+#             */
-/*   Updated: 2025/11/25 16:59:43 by codespace        ###   ########.fr       */
+/*   Created: 2025/12/01 13:52:00 by Elkan Choo        #+#    #+#             */
+/*   Updated: 2025/12/01 17:17:16 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+#include <unistd.h>
 #include <stdlib.h>
 
-t_list	*ft_lstnew(void *content);
-
-t_list	*ft_lstnew(void *content)
+int	ft_prtnbr(int n, int *count)
 {
-	t_list	*to_return;
+	int		strlen;
+	char	*s;
+	int		to_return;
 
-	to_return = malloc(sizeof(t_list));
-	if (to_return == NULL)
-		return (NULL);
-	to_return->content = content;
-	to_return->next = NULL;
+	strlen = 0;
+	to_return = 0;
+	s = ft_itoa(n);
+	while (s[strlen] && to_return >= 0)
+	{
+		to_return = write(1, s + strlen, 1);
+		if (to_return >= 0)
+			strlen++;
+	}
+	free(s);
+	(*count) += strlen;
 	return (to_return);
 }

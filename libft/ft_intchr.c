@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 #include <stddef.h>
 
 int	*ft_intchr(const int *s, int c, size_t n)

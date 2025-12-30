@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_prtstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echoo <echoo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 17:02:34 by echoo             #+#    #+#             */
-/*   Updated: 2025/11/24 17:05:56 by echoo            ###   ########.fr       */
+/*   Created: 2025/12/01 13:53:32 by Elkan Choo        #+#    #+#             */
+/*   Updated: 2025/12/01 17:17:17 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,24 @@
 
 #include <unistd.h>
 
-// void	ft_putendl_fd(char *s, int fd);
-
-// int	main(void)
-// {
-// 	char	*str = "Hello, world";
-// 	ft_putendl_fd(str, 1);
-// }
-
-void	ft_putendl_fd(char *s, int fd)
+int	ft_prtstr(char *s, int *count)
 {
 	int	strlen;
+	int	to_return;
 
-	strlen = 0;
-	while (s[strlen])
+	if (s == NULL)
 	{
-		strlen++;
+		to_return = ft_prtstr("(null)", count);
+		return (to_return);
 	}
-	write(fd, s, strlen);
-	write(fd, "\n", 1);
+	strlen = 0;
+	to_return = 0;
+	while (s[strlen] && to_return >= 0)
+	{
+		to_return = write(1, s + strlen, 1);
+		if (to_return >= 0)
+			strlen++;
+	}
+	(*count) += strlen;
+	return (to_return);
 }

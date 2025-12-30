@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
+/*   ft_prtchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echoo <echoo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 18:52:24 by echoo             #+#    #+#             */
-/*   Updated: 2025/11/25 17:10:48 by echoo            ###   ########.fr       */
+/*   Created: 2025/11/29 16:33:47 by echoo             #+#    #+#             */
+/*   Updated: 2025/12/01 11:36:37 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-#include <stdlib.h>
+#include <stdarg.h>
+#include <unistd.h>
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+int	ft_prtchar(char c, va_list *ap, int *count)
 {
-	if (lst == NULL || del == NULL)
-		return ;
-	del(lst->content);
-	free(lst);
+	char	arg;
+	int		tr;
+
+	arg = '%';
+	if (c == 'c')
+		arg = va_arg(*ap, int);
+	tr = write(1, &arg, 1);
+	if (tr >= 0)
+		(*count)++;
+	return (tr);
 }

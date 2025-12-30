@@ -12,6 +12,8 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# include <stdarg.h>
+# include <stdint.h>
 # include <stddef.h>
 
 typedef struct s_list
@@ -65,6 +67,32 @@ char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
+
+// ft_printf
+int				ft_prtchar(char c, va_list *ap, int *count);
+int				ft_printf(const char *s, ...);
+int				ft_prtnbr(int n, int *count);
+int				ft_prtptr(va_list *ap, int *count, char c);
+int				ft_prtstr(char *s, int *count);
+int				ft_prtuint(unsigned int n, int *count);
+int				ft_prt_hex(char c, uintptr_t num, int *count);
+void			ft_utohextoa(uintptr_t num, char *string, char *base);
+char			*ft_utoa(unsigned int n);
+
+// GNL
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
+
+char	*get_next_line(int fd);
+char	*calc_return(int n_eof, char *buf);
+char	*get_next_line(int fd);
+int		calc_leftover(char **buf, size_t *len,
+			int *newline_index, char **leftover);
+int		read_fd(char **buf, size_t *len, int *newline_index, int fd);
+int		store_leftover(char **buf, size_t len,
+			int newline_index, char **leftover);
+int		ft_newline(char *str, int i);
 
 // OWN FUNCTIONS
 

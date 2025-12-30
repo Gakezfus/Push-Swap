@@ -10,7 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-SOURCES = $(wildcard *.c)
+SOURCES = actions.c actions_utils.c brute_sort.c init_a_to_b.c main.c \
+merge_sort.c post_processing.c process_log.c setup.c turk_algo.c turk_b_to_a.c
 
 OBJECTS = $(SOURCES:%.c=%.o)
 
@@ -24,9 +25,6 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJECTS) push_swap.h
 	cc $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME)
-
-print:
-	echo $(SOURCES)
 
 $(LIBFT):
 	make -C libft

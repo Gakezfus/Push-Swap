@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_utoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echoo <echoo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 15:49:51 by echoo             #+#    #+#             */
-/*   Updated: 2025/11/26 18:35:18 by echoo            ###   ########.fr       */
+/*   Created: 2025/11/29 16:26:20 by echoo             #+#    #+#             */
+/*   Updated: 2025/11/30 19:56:23 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,39 @@
 #include <stdlib.h>
 // #include <stdio.h>
 
-// char		*ft_itoa(int n);
+// char		*ft_utoa(unsigned int n);
 
 // int	main(void)
 // {
-// 	printf("%s\n", ft_itoa(-2147483648));
+// 	printf("%s\n", ft_utoa(4294967295));
 // }
 
-static int	ft_d_count(int n);
+static int	ft_d_count(unsigned int n);
 
-char	*ft_itoa(int n)
+char	*ft_utoa(unsigned int n)
 {
 	int		dc;
 	int		index;
-	int		neg;
 	char	*to_return;
 
 	dc = ft_d_count(n);
-	neg = 0;
-	if (n < 0)
-		neg = 1;
-	to_return = malloc(dc + neg + 1);
+	to_return = malloc(dc + 1);
 	if (to_return == NULL)
 		return (NULL);
-	if (neg)
-		to_return[0] = '-';
 	index = 0;
 	while (index < dc)
 	{
-		to_return[dc - 1 + neg - index++] = ((n % 10) * (neg * -2 + 1)) + '0';
+		to_return[dc - 1 - index++] = (n % 10) + '0';
 		n /= 10;
 	}
-	to_return[dc + neg] = '\0';
+	to_return[dc] = '\0';
 	return (to_return);
 }
 
-static int	ft_d_count(int n)
+static int	ft_d_count(unsigned int n)
 {
-	int	dup;
-	int	digit_count;
+	unsigned int	dup;
+	int				digit_count;
 
 	if (n == 0)
 		return (1);

@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_int_arr_dup.c                                   :+:      :+:    :+:   */
+/*   ft_prt_hex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/26 17:24:17 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/26 18:18:59 by Elkan Choo       ###   ########.fr       */
+/*   Created: 2025/11/29 17:26:09 by Elkan Choo        #+#    #+#             */
+/*   Updated: 2025/12/03 19:27:07 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdint.h>
+#include <stdio.h>
 
-#include <stddef.h>
-#include <stdlib.h>
+int		ft_prtstr(char *s, int *count);
+void	ft_utohextoa(uintptr_t num, char *string, char *base);
 
-int	*ft_int_arr_dup(const int *i, size_t src_len, size_t dst_len)
+int	ft_prt_hex(char c, uintptr_t num, int *count)
 {
-	int		*dup;
-	size_t	index;
+	char			base[17];
+	char			to_print[20];
 
-	dup = malloc(dst_len);
-	index = 0;
-	while (index < src_len)
+	if (c == 'X')
 	{
-		dup[index] = i[index];
-		index++;
+		ft_strlcpy(base, "0123456789ABCDEF", 17);
 	}
-	return (dup);
+	else
+		ft_strlcpy(base, "0123456789abcdef", 17);
+	ft_utohextoa(num, to_print, base);
+	return (ft_prtstr(to_print, count));
 }

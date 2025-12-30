@@ -12,7 +12,6 @@
 
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
 
 #include "libft.h"
 #include "push_swap.h"
@@ -69,7 +68,8 @@ static char	*solve(int *data, int len)
 	if (init_var(sol, stack, &log)
 	|| brute_sort(stack, &log)
 		|| turk_setup(stack, &log, len)
-	|| process_log(&to_return, log))
+	|| process_log(&to_return, log)
+	)
 		return (free(sol), free(stack[1]), ft_lstclear(&log, free), NULL);
 	return (free(sol), free(stack[1]), ft_lstclear(&log, free), to_return);
 }

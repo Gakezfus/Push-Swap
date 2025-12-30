@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 long long int	ft_atoll(const char *str)
 {
 	int				negative;

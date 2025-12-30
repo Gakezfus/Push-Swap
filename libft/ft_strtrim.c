@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-#include <stdio.h>
-#include <strings.h>
+
+#include <stdlib.h>
+// #include <stdio.h>
+// #include <strings.h>
 
 // char	*ft_strtrim(char const *s1, char const *set);
 

@@ -36,15 +36,15 @@ int	process_log(char **to_return, t_list *log)
 	str_len = log_len(log, &int_len);
 	*to_return = malloc((str_len + 1));
 	path = malloc(int_len * sizeof(int));
-	dup = malloc(int_len * sizeof(int));
+	dup = ft_calloc(int_len, sizeof(int));
 	if (*to_return == NULL || path == NULL || dup == NULL)
-		return (ft_lstclear(&log, free), 1);
+		return (ft_lstclear(&log, free), free(path), free(dup), 1);
 	log_to_int(path, log);
 	post_processing(path, dup, int_len);
 	free(path);
 	path = dup;
 	convert_log(to_return, path, int_len);
-	return (0);
+	return (free(path), 0);
 }
 
 static void log_to_int(int *path, t_list *log)
