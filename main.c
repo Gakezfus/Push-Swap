@@ -110,20 +110,14 @@ static int	init_var(int *solution, int *stack[2], t_list **log)
 // then sort stack A.
 static int	arrange_init(int init[INIT_LEN], int *stack[2], t_list **log, int *sol)
 {
-	int	*stack_1;
-	int	*chunk;
-	int	len;
+	int	index;
 
-	len = stack[0][0];
-	stack_1 = malloc(len * sizeof(int));
-	chunk = malloc(len * sizeof(int));
-	if (chunk == NULL || stack_1 == NULL)
-		return (free(chunk), 1);
-	make_chunk(stack, sol);
-	ft_memcpy(stack_1, stack[0] + 1, len * sizeof(int));
-	// Perhaps put this function in the chunk? Something like:
-	if (a_to_b(stack_1, stack, init, log))
-		return (free(stack_1), 1);
-	(void) sol;
-	return (free(stack_1), 0);
+	index = 0;
+	while (index < 2)
+	{
+		if (a_to_b(sol, stack, init, log))
+			return (1);
+		index++;
+	}
+	return (0);
 }

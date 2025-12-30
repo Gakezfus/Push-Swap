@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 12:15:31 by elkan             #+#    #+#             */
-/*   Updated: 2025/12/29 23:50:06 by elkan            ###   ########.fr       */
+/*   Updated: 2025/12/30 16:25:34 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,36 @@ void	find_chunk(int *longest_len, int *longest_index,
 
 // chunk = make_chunk(stack, sol);
 
-int	a_to_b(int *stack_1, int *stack[2], int init[INIT_LEN], t_list **log)
+int	a_to_b(int *sol, int *stack[2], int init[INIT_LEN], t_list **log)
 {
 	int			len;
-	static int	index = 0;
+	int			*stack_1;
+	int			index;
+	static int	times = 0;
 	
+	index = 0;
 	len = stack[0][0];
+	stack_1 = malloc(len * sizeof(int));
+	if (stack_1 == NULL)
+		return (free(stack_1), 1);
+	ft_memcpy(stack_1, stack[0] + 1, len * sizeof(int));
 	while (index < len)
 	{
-		if (ft_intchr(init, stack_1[index], INIT_LEN))
+		if (ft_intchr(init, stack_1[index], INIT_LEN)
+				|| (!times && !ft_intchr(sol, stack_1[index], (len / 5) * 4)))
 		{
 			if (act(5, stack, log))
-				return (1);
+				return (free(stack_1), 1);
 		}
 		else
+		if (times || ft_intchr(sol, stack_1[index], (len / 5) * 4))
 			if (act(4, stack, log))
-				return (1);
+				return (free(stack_1), 1);
 		index++;
 	}
-	return (0);
+	times++;
+	(void) sol;
+	return (free(stack_1), 0);
 }
 
 int	*make_chunk(int *stack[2], int *sol)
