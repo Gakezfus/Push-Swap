@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 19:11:27 by elkan             #+#    #+#             */
-/*   Updated: 2025/12/30 19:25:24 by elkan            ###   ########.fr       */
+/*   Updated: 2025/12/31 12:36:50 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,54 @@
 #include <unistd.h>
 
 #include "libft.h"
+#include "checker_bonus.h"
 
-static char	*solve(int *data, int len);
+static int	check_sol(int *data, int len, int *sol);
 static int	find_sol(int *sol, int *data, int len);
 
 int	main(int argc, char *argv[])
 {
-	int		*data;
-	char	*to_write;
-	int		index;
+	int			*data;
+	int			invalid;
+	static int	*sol = NULL;
 
 	if (argc < 2)
 		return (1);
 	data = malloc((argc) * sizeof(int));
 	if (data == NULL || check(argv + 1) || con_int(argc - 1, argv + 1, data))
 		return (free(data), write(2, "Error\n", 6), 1);
-	to_write = solve(data, argc - 1);
-	if (to_write == NULL)
-		return (free(data), write(2, "Error\n", 6), 1);
-	if (*to_write == 0)
-		return (free(data), free(to_write), 0);
-	index = 0;
-	while (to_write[index])
-		write(1, to_write + index++, 1);
-	return (free(data), free(to_write), 0);
+	sol = malloc((argc - 1) * sizeof(int));
+	invalid = check_sol(data, argc - 1, sol);
+	if (invalid)
+		return (free(sol), free(data), write(2, "Error\n", 6), 1);
+	if (!ft_memcmp(sol, data + 1, (argc - 1) * sizeof(int)))
+		write(1, "OK\n", 3);
+	else
+		write(2, "KO\n", 3);
+	return (free(sol), free(data), 0);
 }
 
-static char	*solve(int *data, int len)
+static int	check_sol(int *data, int len, int *sol)
 {
-	int		*sol;
 	int		*stack[2];
-	char	line[4];
+	char	*line;
 
-	sol = malloc(len * sizeof(int));
 	stack[1] = ft_calloc((len + 1), sizeof(int));
 	if (stack[1] == NULL || sol == NULL || find_sol(sol, data, len))
-		return (free(sol), NULL);
+		return (free(sol), 1);
 	stack[0] = data;
 	ft_memmove(stack[0] + 1, stack[0], len * sizeof(int));
 	stack[0][0] = len;
 	line = get_next_line(0);
-	while(!line)
+	while (line)
 	{
-		(other stuff)
+		if (track_act(line, stack))
+			return (free(stack[1]), 1);
+		free(line);
 		line = get_next_line(0);
 	}
+	free(line);
+	return (free(stack[1]), 0);
 }
 
 static int	find_sol(int *sol, int *data, int len)

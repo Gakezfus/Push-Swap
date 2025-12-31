@@ -30,18 +30,6 @@ int	shift_to_a(int sc_index, int *stack[2], int *score[3], t_list **log)
 		if (act(6 + (score[2][sc_index]) * 2, stack, log))
 			return (1);
 	}
-	// for (int i = 0; i < stack[0][0] + 1; i++)
-	// {
-	// 	printf("stack[0][%i]: %i\n", i, stack[0][i]);
-	// }
-	// for (int i = 0; i < stack[1][0] + 1; i++)
-	// {
-	// 	printf("stack[1][%i]: %i\n", i, stack[1][i]);
-	// }
-	// printf("\n");
-	// printf("rev: %i\n", score[1][sc_index]);
-	// printf("element: %i\n", element);
-	// printf("ori_index: %i\n\n", pos);
 	if (score[1][sc_index])
 		pos = stack[0][0] - pos;
 	if (b_to_a(pos, stack, score[1][sc_index], log))

@@ -23,36 +23,30 @@ static int	*search_2(int *stack, int *sol, int *path, int *depth);
 // Sol here is for the sorted order of current elements, not ALL elements
 int	brute_sort(int *stack[2], t_list **log)
 {
-	static int	*path = NULL;
-	int			*p_dup;
+	int			*path;
 	int			*sol;
+	static int	*fin_path = NULL;
 	static int	index = 1;
-	static int	depth[1] = {1};
+	static int	depth = 1;
 
 	sol = malloc(stack[0][0] * sizeof(int));
+	path = malloc(sizeof(int));
+	if (sol == NULL || path == NULL)
+		return (free(path), 1);
 	ft_memcpy(sol, stack[0] + 1, stack[0][0] * sizeof(int));
 	merge_sort(sol, stack[0][0]);
-	p_dup = malloc(sizeof(int));
-	if (p_dup == NULL)
-		return (1);
-	p_dup[0] = 0;
-	while (!path && depth[0]++)
+	path[0] = 0;
+	while (!fin_path && depth++)
+		fin_path = search(stack[0], sol, path, &depth);
+	while (index < fin_path[0] + 1)
 	{
-		path = search(stack[0], sol, p_dup, depth);
-	}
-	while (index < path[0] + 1)
-	{
-		if (act("157"[path[index] - 1] - '0', stack, log))
+		if (act("157"[fin_path[index] - 1] - '0', stack, log))
 		{
-			if (path[0] == 0)
-				return (free(sol), free(path), 1);
-			return (free(sol), free(p_dup), free(path), 1);
+			return (free(sol), free(path), free(fin_path), 1);
 		}
 		index++;
 	}
-	if (path[0] == 0)
-		return (free(sol), free(path), 0);
-	return (free(sol), free(p_dup), free(path), 0);
+	return (free(sol), free(path), free(fin_path), 0);
 }
 
 static int	*search(int *stack, int *sol, int *path, int *depth)
@@ -60,18 +54,16 @@ static int	*search(int *stack, int *sol, int *path, int *depth)
 	int	*ret;
 	int	*p_dup;
 
-	if (!ft_memcmp(stack + 1, sol, stack[0] * sizeof(int)))
-		return (path);
-	path[0]++;
-	if (path[0] > *depth)
-		return (path[0]--, NULL);
 	p_dup = malloc((path[0] + 2) * sizeof(int));
-	if (p_dup == NULL || !ft_memcpy(p_dup, path, path[0] * sizeof(int)))
-		return (path[0]--, free(p_dup), NULL);
+	if (p_dup == NULL || !ft_memcpy(p_dup, path, (path[0] + 1) * sizeof(int)))
+		return (NULL);
+	if (!ft_memcmp(stack + 1, sol, stack[0] * sizeof(int)))
+		return (p_dup);
+	p_dup[0]++;
+	if (p_dup[0] > *depth)
+		return (free(p_dup), NULL);
 	ret = search_2(stack, sol, p_dup, depth);
-	if (ret)
-		return (path[0]--, ret);
-	return (path[0]--, NULL);
+	return (ret);
 }
 
 // Returns path if solution found, NULL if no solution found or mem error.

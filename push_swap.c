@@ -20,8 +20,8 @@
 
 static char	*solve(int *data, int len);
 static int	init_var(int *solution, int *stack[2], t_list **log);
-static int	arrange_init(int init[INIT_LEN], int *stack[2], t_list **log,
-			int *sol);
+static int	arrange_init(int init[INIT_LEN], int *stack[2],
+				t_list **log, int *sol);
 static int	find_sol(int *sol, int *data, int len);
 
 int	main(int argc, char *argv[])
@@ -65,11 +65,8 @@ static char	*solve(int *data, int len)
 	stack[0][0] = len;
 	to_return = NULL;
 	log = NULL;
-	if (init_var(sol, stack, &log)
-	|| brute_sort(stack, &log)
-		|| turk_setup(stack, &log, len)
-	|| process_log(&to_return, log)
-	)
+	if (init_var(sol, stack, &log) || brute_sort(stack, &log)
+		|| turk_setup(stack, &log, len) || process_log(&to_return, log))
 		return (free(sol), free(stack[1]), ft_lstclear(&log, free), NULL);
 	return (free(sol), free(stack[1]), ft_lstclear(&log, free), to_return);
 }
@@ -100,7 +97,7 @@ static int	init_var(int *solution, int *stack[2], t_list **log)
 			index++;
 		}
 	}
-	if (stack[0][0] >= INIT_LEN)
+	if (stack[0][0] > INIT_LEN)
 		if (arrange_init(init, stack, log, solution))
 			return (1);
 	return (0);
@@ -108,7 +105,8 @@ static int	init_var(int *solution, int *stack[2], t_list **log)
 
 // Function is supposed to keep the 4 in stack A, send the rest to stack B,
 // then sort stack A.
-static int	arrange_init(int init[INIT_LEN], int *stack[2], t_list **log, int *sol)
+static int	arrange_init(int init[INIT_LEN], int *stack[2],
+					t_list **log, int *sol)
 {
 	int	index;
 

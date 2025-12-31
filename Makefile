@@ -10,21 +10,32 @@
 #                                                                              #
 # **************************************************************************** #
 
-SOURCES = actions.c actions_utils.c brute_sort.c init_a_to_b.c main.c \
+SOURCES = actions.c actions_utils.c brute_sort.c init_a_to_b.c push_swap.c \
 merge_sort.c post_processing.c process_log.c setup.c turk_algo.c turk_b_to_a.c
 
+BONUS_SOURCES = $(wildcard *_bonus.c)
+
 OBJECTS = $(SOURCES:%.c=%.o)
+
+BONUS_OBJECTS = $(BONUS_SOURCES:%.c=%.o)
 
 LIBFT = libft/libft.a
 
 NAME = push_swap
 
-CFLAGS = -Wall -Wextra -Werror -Ilibft -g
+BONUS_NAME = checker
+
+CFLAGS = -Wall -Wextra -Werror -Ilibft
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJECTS) push_swap.h
 	cc $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME)
+
+bonus: $(BONUS_NAME)
+
+$(BONUS_NAME): $(LIBFT) $(BONUS_OBJECTS) checker_bonus.h
+	cc $(CFLAGS) $(BONUS_OBJECTS) $(LIBFT) -o $(BONUS_NAME)
 
 $(LIBFT):
 	make -C libft
@@ -35,13 +46,15 @@ $(LIBFT):
 -include $(SRC:.c=.d)
 
 clean:
-	rm -f $(OBJECTS)
+	rm -f $(OBJECTS) $(BONUS_OBJECTS)
 	make clean -C libft
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(BONUS_NAME)
+	rm -f $(SOURCES:%.c=%.d)
+	rm -f $(BONUS_SOURCES:%.c=%.d)
 	make fclean -C libft
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

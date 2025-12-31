@@ -18,8 +18,8 @@
 
 static int	log_len(t_list *log, int *int_len);
 static void	convert_log(char **to_return, int *path, int len);
-static void convert_log_2(char **to_return, int path_num, int *str_index);
-static void log_to_int(int *path, t_list *log);
+static void	convert_log_2(char **to_return, int path_num, int *str_index);
+static void	log_to_int(int *path, t_list *log);
 
 // potentially process to_return to check for double action efficiency.
 // will see if such efficiency is necessary. If necessary, will prob
@@ -47,10 +47,11 @@ int	process_log(char **to_return, t_list *log)
 	return (free(path), 0);
 }
 
-static void log_to_int(int *path, t_list *log)
+static void	log_to_int(int *path, t_list *log)
 {
 	t_list		*tmp;
 	static int	index = 0;
+
 	tmp = log;
 	while (tmp)
 	{
@@ -90,7 +91,7 @@ static void	convert_log(char **to_return, int *path, int len)
 	}
 }
 
-static void convert_log_2(char **to_return, int act_num, int *str_index)
+static void	convert_log_2(char **to_return, int act_num, int *str_index)
 {
 	if (act_num == 8)
 		ft_strlcpy(*to_return + (*str_index)++, "rrb\n", 5);

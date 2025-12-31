@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 17:46:04 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2025/12/30 19:17:44 by elkan            ###   ########.fr       */
+/*   Updated: 2025/12/31 12:20:24 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 #include <stdio.h>
 
 #include "libft.h"
-#include "push_swap.h"
+#include "checker_bonus.h"
 
 static void	merge(int *data, int len, int index[3]);
+
+int			check_sorted(int *data, int len);
+void		merge_sort(int *data, int len);
 
 // Len is number of ints, not number of bytes
 void	merge_sort(int *data, int len)
@@ -37,16 +40,6 @@ void	merge_sort(int *data, int len)
 			data[0] = tmp;
 		}
 	}
-}
-
-int	get_sol_index(int i, int *sol)
-{
-	int	index;
-
-	index = 0;
-	while (!(i == sol[index]))
-		index++;
-	return (index);
 }
 
 static void	merge(int *data, int len, int index[3])

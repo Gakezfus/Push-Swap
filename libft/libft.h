@@ -84,15 +84,15 @@ char			*ft_utoa(unsigned int n);
 #  define BUFFER_SIZE 1
 # endif
 
-char	*get_next_line(int fd);
-char	*calc_return(int n_eof, char *buf);
-char	*get_next_line(int fd);
-int		calc_leftover(char **buf, size_t *len,
-			int *newline_index, char **leftover);
-int		read_fd(char **buf, size_t *len, int *newline_index, int fd);
-int		store_leftover(char **buf, size_t len,
-			int newline_index, char **leftover);
-int		ft_newline(char *str, int i);
+char			*get_next_line(int fd);
+char			*calc_return(int n_eof, char *buf);
+char			*get_next_line(int fd);
+int				calc_leftover(char **buf, size_t *len,
+					int *newline_index, char **leftover);
+int				read_fd(char **buf, size_t *len, int *newline_index, int fd);
+int				store_leftover(char **buf, size_t len,
+					int newline_index, char **leftover);
+int				ft_newline(char *str, int i);
 
 // OWN FUNCTIONS
 
@@ -108,6 +108,6 @@ int				*ft_int_arr_dup(const int *i, size_t src_len, size_t dst_len);
 unsigned int	ft_idim(int x, int y);
 
 // sets the value of all ints pointed to by the function to zero
-void 			ft_set_zero(int num, ...);
+void			ft_set_zero(int num, ...);
 
 #endif

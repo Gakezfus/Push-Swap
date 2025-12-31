@@ -79,29 +79,24 @@ int	check_order_in_stack(int *stack, int sortee)
 	int	pos;
 	int	largest;
 
-	index = 0;
-	while (index < stack[0])
+	index = -1;
+	while (++index < stack[0])
 	{
 		if (index == 0)
-		{
 			if (stack[stack[0]] < sortee && sortee < stack[1])
 				return (index);
-		}
-		else if (stack[index] < sortee && sortee < stack[index + 1])
+		if (index > 0 && stack[index] < sortee && sortee < stack[index + 1])
 			return (index);
-		index++;
 	}
-	index = 1;
-	pos = 0;
+	ft_set_zero(2, &index, &pos);
 	largest = INT_MIN;
-	while (index < stack[0] + 1)
+	while (++index < stack[0] + 1)
 	{
 		if (stack[index] > largest)
 		{
 			largest = stack[index];
 			pos = index - 1;
 		}
-		index++;
 	}
 	return (pos + 1);
 }
@@ -140,7 +135,7 @@ void	calc_score_b(int *stack[2], int *score[3])
 			to_add = stack[1][0] - index;
 		else
 			to_add = index;
-		score[0][index] +=	to_add;
+		score[0][index] += to_add;
 		if (diff > to_add)
 			diff = to_add;
 		if (score[1][index] == score[2][index])

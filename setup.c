@@ -24,12 +24,14 @@ int	check(char *argv[])
 	index = 0;
 	while (argv[index])
 	{
+		if (!argv[index][0])
+			return (1);
 		if (digit_check(argv[index]))
 			return (1);
 		index2 = 0;
 		while (index2 < index)
 		{
-			if (!ft_strncmp(argv[index], argv[index2], 10))
+			if (!ft_strncmp(argv[index], argv[index2], 11))
 				return (1);
 			index2++;
 		}

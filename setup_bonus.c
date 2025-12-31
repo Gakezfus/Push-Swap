@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 19:13:37 by elkan             #+#    #+#             */
-/*   Updated: 2025/12/30 19:13:39 by elkan            ###   ########.fr       */
+/*   Updated: 2025/12/31 12:57:38 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@
 #include <stdio.h>
 
 #include "libft.h"
-#include "push_swap.h"
+#include "checker_bonus.h"
+
+int	check(char *argv[]);
+int	digit_check(char *s);
+int	con_int(int item_count, char *argv[], int *data);
 
 int	check(char *argv[])
 {
@@ -36,12 +40,14 @@ int	check(char *argv[])
 	index = 0;
 	while (argv[index])
 	{
+		if (!argv[index][0])
+			return (1);
 		if (digit_check(argv[index]))
 			return (1);
 		index2 = 0;
 		while (index2 < index)
 		{
-			if (!ft_strncmp(argv[index], argv[index2], 10))
+			if (!ft_strncmp(argv[index], argv[index2], 11))
 				return (1);
 			index2++;
 		}
@@ -83,4 +89,3 @@ int	con_int(int item_count, char *argv[], int *data)
 	}
 	return (0);
 }
-

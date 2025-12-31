@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 12:15:31 by elkan             #+#    #+#             */
-/*   Updated: 2025/12/30 16:25:34 by elkan            ###   ########.fr       */
+/*   Updated: 2025/12/31 17:31:09 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 
 int		a_to_b(int *stack_1, int *stack[2], int init[INIT_LEN], t_list **log);
 int		*make_chunk(int *stack[2], int *sol);
-int		*get_longest_chunk(int *stack[2], int* c_data[3], int *sol);
-int		*build_chunk(int *stack[2], int* c_data[3], int *sol);
+int		*get_longest_chunk(int *stack[2], int *c_data[3], int *sol);
+int		*build_chunk(int *stack[2], int *c_data[3], int *sol);
 void	find_chunk(int *longest_len, int *longest_index,
-		int *stack[2], int *c_data[3]);
+			int *stack[2], int *c_data[3]);
 
 // chunk = make_chunk(stack, sol);
 
@@ -31,30 +31,26 @@ int	a_to_b(int *sol, int *stack[2], int init[INIT_LEN], t_list **log)
 	int			*stack_1;
 	int			index;
 	static int	times = 0;
-	
-	index = 0;
+
+	index = -1;
 	len = stack[0][0];
 	stack_1 = malloc(len * sizeof(int));
 	if (stack_1 == NULL)
 		return (free(stack_1), 1);
 	ft_memcpy(stack_1, stack[0] + 1, len * sizeof(int));
-	while (index < len)
+	while (++index < len)
 	{
 		if (ft_intchr(init, stack_1[index], INIT_LEN)
-				|| (!times && !ft_intchr(sol, stack_1[index], (len / 5) * 4)))
+			|| (!times && !ft_intchr(sol, stack_1[index], (len / 5) * 4)))
 		{
 			if (act(5, stack, log))
 				return (free(stack_1), 1);
 		}
-		else
-		if (times || ft_intchr(sol, stack_1[index], (len / 5) * 4))
+		else if (times || ft_intchr(sol, stack_1[index], (len / 5) * 4))
 			if (act(4, stack, log))
 				return (free(stack_1), 1);
-		index++;
 	}
-	times++;
-	(void) sol;
-	return (free(stack_1), 0);
+	return (free(stack_1), times++, 0);
 }
 
 int	*make_chunk(int *stack[2], int *sol)
@@ -78,7 +74,6 @@ int	*make_chunk(int *stack[2], int *sol)
 	return (free(c_data[0]), free(c_data[1]), free(c_data[2]), chunk);
 }
 
-
 // c_data[0][i] represents the order of the element stack[0][i + 1] in the
 // solution. So, stack[0][1] == 0 means stack[0][2] is first in the solution
 // c_data[1][i] represents the longest possible string of numbers that have
@@ -86,7 +81,7 @@ int	*make_chunk(int *stack[2], int *sol)
 // stack[0][i + 1]. c_data[2][i] represents the solution index of the previous
 // number in that string. So, if c_data[0][c_data[2][i]] == 1, the previous
 // number would be second from the top in the solution
-int	*get_longest_chunk(int *stack[2], int* c_data[3], int *sol)
+int	*get_longest_chunk(int *stack[2], int *c_data[3], int *sol)
 {
 	int			longest_index;
 	int			longest_len;
@@ -114,9 +109,8 @@ int	*get_longest_chunk(int *stack[2], int* c_data[3], int *sol)
 	return (build_chunk(stack, c_data, sol));
 }
 
-
 // Code should theoretically return chunk correctly. Needs testing
-int	*build_chunk(int *stack[2], int* c_data[3], int *sol)
+int	*build_chunk(int *stack[2], int *c_data[3], int *sol)
 {
 	int	index;
 	int	longest_len;

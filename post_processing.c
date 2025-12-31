@@ -22,29 +22,27 @@ int		math(int act);
 // value of the initial consecutive actions
 void	post_processing(int *path, int *dup, int int_len)
 {
-	static int	indexes[3];
+	static int	ind[3];
 
-	while (indexes[0] < int_len)
+	while (ind[0] < int_len)
 	{
-		indexes[2] = 0;
-		indexes[1] = 0;
-		if (5 <= path[indexes[0]] && path[indexes[0]] <= 8)
+		ind[2] = 0;
+		ind[1] = 0;
+		if (5 <= path[ind[0]] && path[ind[0]] <= 8)
 		{
-			while (indexes[0] + indexes[1] < int_len && path[indexes[0]] == path[indexes[0] + indexes[1]])
+			while (ind[0] + ind[1] < int_len && path[ind[0]]
+				== path[ind[0] + ind[1]])
 			{
-				indexes[1]++;
-			}	
-			indexes[2] = indexes[1];
-			indexes[1] = 0;
-			while (indexes[0] + indexes[2] + indexes[1] < int_len && indexes[1] < indexes[2] && (math(path[indexes[0]]) == path[indexes[0] + indexes[2] + indexes[1]]))
-				indexes[1]++;
+				ind[1]++;
+			}
+			ind[2] = ind[1];
+			ind[1] = 0;
+			while (ind[0] + ind[2] + ind[1] < int_len && ind[1] < ind[2]
+				&& (math(path[ind[0]]) == path[ind[0] + ind[2] + ind[1]]))
+				ind[1]++;
 		}
-		update(path, dup, indexes);
+		update(path, dup, ind);
 	}
-	// for (int i = 0; i < int_len; i++)
-	// {
-	// 	printf("dup[%i]: %i\n", i, dup[i]);
-	// }
 }
 
 void	update(int *path, int *dup, int indexes[3])
@@ -79,9 +77,9 @@ void	update(int *path, int *dup, int indexes[3])
 // even will be 1 for even and 0 for odd numbers. 
 int	math(int act)
 {
-	int odd;
+	int	odd;
 	int	even;
-	
+
 	odd = act % 2;
 	even = (1 - act % 2);
 	act += odd - even;

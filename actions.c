@@ -64,7 +64,7 @@
 int			act(int act_no, int *stack[2], t_list **log);
 int			act_a(int act_no, int *stack);
 int			log_act(int act_no, t_list **log);
-static void	act_2(int act_no, int *stack[2], t_list **log);
+static int	act_2(int act_no, int *stack[2], t_list **log);
 
 int	act(int act_no, int *stack[2], t_list **log)
 {
@@ -76,18 +76,45 @@ int	act(int act_no, int *stack[2], t_list **log)
 		push(stack, 1, 0);
 	if (act_no == 4 && stack[0][0])
 		push(stack, 0, 1);
-	if (act_no == 5)
+	if (act_no == 5 && stack[0][0])
 		rot(stack[0], 0);
-	if (act_no == 6)
+	if (act_no == 6 && stack[1][0])
 		rot(stack[1], 0);
 	if (act_no == 7)
 		rot(stack[0], 1);
 	if (act_no == 8)
 		rot(stack[1], 1);
 	if (act_no >= 9)
-		act_2(act_no, stack, log);
+		if (act_2(act_no, stack, log))
+			return (1);
 	if (log_act(act_no, log))
 		return (1);
+	return (0);
+}
+
+static int	act_2(int act_no, int *stack[2], t_list **log)
+{
+	if (act_no == 9)
+	{
+		swap_int(&stack[0][1], &stack[0][2]);
+		swap_int(&stack[1][1], &stack[1][2]);
+		if (log_act(act_no, log))
+			return (1);
+	}
+	if (act_no == 10)
+	{
+		rot(stack[0], 0);
+		rot(stack[1], 0);
+		if (log_act(act_no, log))
+			return (1);
+	}
+	if (act_no == 11)
+	{
+		rot(stack[0], 1);
+		rot(stack[1], 1);
+		if (log_act(act_no, log))
+			return (1);
+	}
 	return (0);
 }
 
@@ -104,28 +131,6 @@ int	act(int act_no, int *stack[2], t_list **log)
 // act_no == 7:
 // rra (reverse rotate a): Shift down all elements of stack a by 1.
 // The last element becomes the first one.
-
-static void	act_2(int act_no, int *stack[2], t_list **log)
-{
-	if (act_no == 9)
-	{
-		swap_int(&stack[0][1], &stack[0][2]);
-		swap_int(&stack[1][1], &stack[1][2]);
-		log_act(act_no, log);
-	}
-	if (act_no == 10)
-	{
-		rot(stack[0], 0);
-		rot(stack[1], 0);
-		log_act(act_no, log);
-	}
-	if (act_no == 11)
-	{
-		rot(stack[0], 1);
-		rot(stack[1], 1);
-		log_act(act_no, log);
-	}
-}
 
 int	act_a(int act_no, int *stack)
 {

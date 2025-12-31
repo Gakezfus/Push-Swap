@@ -14,11 +14,11 @@
 
 #include <stdarg.h>
 
-void ft_set_zero(int num, ...)
+void	ft_set_zero(int num, ...)
 {
 	va_list	ap;
-	int	index;
-	int	*to_zero;
+	int		index;
+	int		*to_zero;
 
 	index = 0;
 	va_start(ap, num);
