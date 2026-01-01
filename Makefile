@@ -13,7 +13,8 @@
 SOURCES = actions.c actions_utils.c brute_sort.c init_a_to_b.c push_swap.c \
 merge_sort.c post_processing.c process_log.c setup.c turk_algo.c turk_b_to_a.c
 
-BONUS_SOURCES = $(wildcard *_bonus.c)
+BONUS_SOURCES = actions_bonus.c actions_utils_bonus.c checker_bonus.c \
+merge_sort_bonus.c setup_bonus.c
 
 OBJECTS = $(SOURCES:%.c=%.o)
 
