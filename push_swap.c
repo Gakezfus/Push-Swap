@@ -35,6 +35,8 @@ int	main(int argc, char *argv[])
 	data = malloc((argc) * sizeof(int));
 	if (data == NULL || check(argv + 1) || con_int(argc - 1, argv + 1, data))
 		return (free(data), write(2, "Error\n", 6), 1);
+	if (!check_sorted(data, argc - 1))
+		return (0);
 	to_write = solve(data, argc - 1);
 	if (to_write == NULL)
 		return (free(data), write(2, "Error\n", 6), 1);
